@@ -46,6 +46,14 @@ body {
   width: 28px;
 }
 
+/*--------*/
+/* Browse */
+/*--------*/
+a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
+  color: #333;
+  text-decoration: none;
+}
+
 /*-----------*/
 /* New tweet */
 /*-----------*/

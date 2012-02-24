@@ -6,5 +6,5 @@
   - if @tweets
     - @tweets.each do |tweet|
       %article.well
-        = tweet.body
-        %a{href: '#'}= '#' + tweet.hash_tag.name
+        %a.tweet{href: '#'}= tweet.body
+        %a{href: '/?q=%23' + tweet.hash_tag.name, 'data-pjax' => '#content'}= '#' + tweet.hash_tag.name
