@@ -65,3 +65,13 @@ a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
   font-weight: bold;
   margin-top: 4px;
 }
+
+/*--------*/
+/* Footer */
+/*--------*/
+footer p {
+  font-size: 14px;
+}
+footer a {
+  display: none;
+}

@@ -11,10 +11,12 @@ class TweetsController < ActionController::Base
     else
       @tweets = Tweet.all
     end
-    @quote = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=1'
   end
   
   def new
+    count = 20
+    response = HTTParty.get('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=' + count.to_s)
+    @quote = response[Random.rand(count)]['text'] rescue nil
   end
   
   private

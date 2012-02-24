@@ -1,10 +1,12 @@
 source 'http://rubygems.org'
 
 gem 'haml'
+gem 'httparty'
 gem 'jquery-rails'
 gem 'less'
 gem 'pg'
 gem 'rails', '3.1.3'
+gem 'rails_autolink'
 gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 group :assets do
