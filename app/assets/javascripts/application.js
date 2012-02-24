@@ -16,9 +16,11 @@ $('#clear-search').click(function() {
 
 $('.search-query').keyup(function() {
   var query = escape($('.search-query').val());
-  // query.replace('#', '!');
-  $.pjax({
-    url: '/?q=' + query,
-    container: '#main'
-  })
+  $.get('/?ajax=true&q=' + query, function(data) {
+    $('#matches').html(data);
+  });
+  // $.pjax({
+  //   url: '/?q=' + query,
+  //   container: '#main'
+  // })
 });

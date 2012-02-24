@@ -6,10 +6,10 @@
       %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0", :name => "viewport"}/
       = csrf_meta_tags
       = stylesheet_link_tag "application", :media => "all"
-      %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
-      %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
-      %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
-      %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
+      / %link{:href => "images/favicon.ico", :rel => "shortcut icon"}
+      / %link{:href => "images/apple-touch-icon.png", :rel => "apple-touch-icon"}
+      / %link{:href => "images/apple-touch-icon-72x72.png", :rel => "apple-touch-icon", :sizes => "72x72"}
+      / %link{:href => "images/apple-touch-icon-114x114.png", :rel => "apple-touch-icon", :sizes => "114x114"}
   %body
     .navbar.navbar-fixed-top
       .navbar-inner
@@ -23,11 +23,11 @@
               %button.btn.btn-inverse Log out
     .container-fluid
       .row-fluid
-        .span3
+        #content.span3
           %form.well.form-search
             %input.input-full.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
             %a#clear-search.close &times;
-          #main= yield
+          #matches= yield
       %footer
         %p © Company 2012
     = javascript_include_tag "application"
