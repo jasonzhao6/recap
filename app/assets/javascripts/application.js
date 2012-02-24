@@ -12,3 +12,7 @@
 $('#clear-search').click(function() {
   $('.search-query').val('');
 });
+
+$('.search-query').keyup(function() {
+  console.log($('.search-query').val());
+});
