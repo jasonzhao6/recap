@@ -2,8 +2,7 @@ class TweetsController < ActionController::Base
   layout :set_layout
   
   def index
-    query = params[:q].try(:downcase)
-    if query
+    if query = params[:q].try(:downcase)
       if query[0] == '#'
         @tweets = Tweet.joins(:hash_tag).where('LOWER(name) like ?', "%#{query[1..-1]}%")
       else
@@ -12,16 +11,18 @@ class TweetsController < ActionController::Base
     else
       @tweets = Tweet.all
     end
+    @quote = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=1'
   end
   
   private
   
   def set_layout
-   if request.headers['X-PJAX'] || params[:ajax] == 'true'
-     false
-   else
-     'tweets'
-   end
+    @ajax = params[:ajax] == 'true'
+    if request.headers['X-PJAX'] || @ajax
+      false
+    else
+      'tweets'
+    end
  end
   
 end

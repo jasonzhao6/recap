@@ -19,8 +19,6 @@ $('.search-query').keyup(function() {
   $.get('/?ajax=true&q=' + query, function(data) {
     $('#matches').html(data);
   });
-  // $.pjax({
-  //   url: '/?q=' + query,
-  //   container: '#main'
-  // })
 });
+
+$('a[data-pjax]').pjax();

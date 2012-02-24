@@ -16,18 +16,15 @@
         .container-fluid
           %ul#custom-nav
             %li
-              %button.btn.btn-inverse Home
+              %a.btn.btn-inverse{href: '/', 'data-pjax' => '#content'} Home
             %li
-              %button.btn.btn-inverse Add new
+              %a.btn.btn-inverse Add new
             %li
-              %button.btn.btn-inverse Log out
+              %a.btn.btn-inverse Log out
     .container-fluid
       .row-fluid
         #content.span3
-          %form.well.form-search
-            %input.input-full.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
-            %a#clear-search.close &times;
-          #matches= yield
+          = yield
       %footer
-        %p © Company 2012
+        %p= @quote
     = javascript_include_tag "application"
