@@ -26,7 +26,6 @@ body {
   float: right;
 }
 #custom-nav a {
-  font-size: 13px;
   font-weight: bold;
   margin: 3px 0 4px;
 }
@@ -58,6 +57,7 @@ a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
 /* New tweet */
 /*-----------*/
 #tweet {
+  padding: 8px;
   margin-top: 8px;
 }
 #char-count {

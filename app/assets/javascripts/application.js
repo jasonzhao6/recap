@@ -30,10 +30,12 @@ $('a[data-pjax]').pjax();
 
 // Char count
 $('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
-  var length = $('#tweet').val().length + $('#hash-tag').val().length + 1;
+  $hashTag = $('#hash-tag');
+  $hashTag.val($hashTag.val().replace(/ /, '').toLowerCase());
+  var length = $('#tweet').val().length + $hashTag.val().length + 1;
   var $charCount = $('#char-count');
   $charCount.text(length);
-  if (length <= 14) {
+  if (length <= 140) {
     $charCount.css('color', 'black');
   } else {
     $charCount.css('color', 'red');
