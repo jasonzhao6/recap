@@ -10,15 +10,32 @@
 //= require jquery.pjax
 //= require_tree .
 
-$('#clear-search').click(function() {
-  $('.search-query').val('');
-});
-
-$('.search-query').keyup(function() {
+// Search
+function search() {
   var query = escape($('.search-query').val());
   $.get('/?ajax=true&q=' + query, function(data) {
     $('#matches').html(data);
   });
+}
+$('#content').delegate('.search-query', 'keyup', function() {
+  search();
+});
+$('#content').delegate('#clear-search', 'click', function() {
+  $('.search-query').val('');
+  search();
 });
 
+// Pjax binding
 $('a[data-pjax]').pjax();
+
+// Char count
+$('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
+  var length = $('#tweet').val().length + $('#hash-tag').val().length + 1;
+  var $charCount = $('#char-count');
+  $charCount.text(length);
+  if (length <= 14) {
+    $charCount.css('color', 'black');
+  } else {
+    $charCount.css('color', 'red');
+  }
+});
