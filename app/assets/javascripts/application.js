@@ -6,4 +6,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require twitter/bootstrap
 //= require_tree .
+
+$('#clear-search').click(function() {
+  $('.search-query').val('');
+});

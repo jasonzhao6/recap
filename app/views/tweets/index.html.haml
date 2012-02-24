@@ -1,0 +1,7 @@
+%form.well.form-search
+  %input.input-full.search-query{type: 'text', placeholder: 'Search...'}
+  %a#clear-search.close &times;
+- @tweets.each do |tweet|
+  %article.well
+    = tweet.body
+    %a{href: '#'}= '#' + tweet.hash_tag.name
