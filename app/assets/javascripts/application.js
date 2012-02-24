@@ -12,16 +12,16 @@
 
 // Search
 function search() {
-  var query = escape($('.search-query').val());
+  var query = escape($('#search').val());
   $.get('/?ajax=true&q=' + query, function(data) {
     $('#matches').html(data);
   });
 }
-$('#content').delegate('.search-query', 'keyup', function() {
+$('#content').delegate('#search', 'keyup', function() {
   search();
 });
 $('#content').delegate('#clear-search', 'click', function() {
-  $('.search-query').val('');
+  $('#search').val('');
   search();
 });
 

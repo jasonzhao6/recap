@@ -35,7 +35,15 @@ body {
 /* Search */
 /*--------*/
 #clear-search {
-  margin: -25px 8px 0 0;
+  background-color: grey;
+  box-sizing: border-box;
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  border-radius: 14px;
+  font-size: 24px;
+  height: 28px;
+  padding: 2px 0 0 7px;
+  width: 28px;
 }
 
 /*-----------*/
