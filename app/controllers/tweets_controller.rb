@@ -14,6 +14,9 @@ class TweetsController < ActionController::Base
     @quote = 'http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=1'
   end
   
+  def new
+  end
+  
   private
   
   def set_layout

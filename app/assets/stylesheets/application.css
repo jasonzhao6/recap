@@ -6,9 +6,16 @@
  *= require_tree . 
 */
 
+/*--------*/
+/* Layout */
+/*--------*/
 body {
   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
+
+/*------------*/
+/* Navigation */
+/*------------*/
 #custom-nav {
   margin: 0;
 }
@@ -23,7 +30,22 @@ body {
   font-weight: bold;
   margin: 3px 0 4px;
 }
+
+/*--------*/
+/* Search */
+/*--------*/
 #clear-search {
-/*  display: none;*/
   margin: -25px 8px 0 0;
+}
+
+/*-----------*/
+/* New tweet */
+/*-----------*/
+#tweet {
+  margin-top: 8px;
+}
+#char-count {
+  float: right;
+  font-weight: bold;
+  margin-top: 4px;
 }
