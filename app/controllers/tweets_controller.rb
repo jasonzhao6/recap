@@ -1,15 +1,27 @@
 class TweetsController < ActionController::Base
+  layout :set_layout
   
   def index
-    if params[:q]
-      if params[:q][0] == '#'
-        @tweets = HashTag.where('name like ?', "%#{params[:q][1..-1]}%").first.try(:tweets)
+    query = params[:q].downcase
+    if query
+      if query[0] == '#'
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(name) like ?', "%#{query[1..-1]}%")
       else
-        @tweets = Tweet.where('body like ?', "%#{params[:q]}%")
+        @tweets = Tweet.where('LOWER(body) like ?', "%#{query}%")
       end
     else
       @tweets = Tweet.all
     end
   end
+  
+  private
+  
+  def set_layout
+   if request.headers['X-PJAX']
+     false
+   else
+     'tweets'
+   end
+ end
   
 end

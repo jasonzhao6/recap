@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require jquery.pjax
 //= require_tree .
 
 $('#clear-search').click(function() {
@@ -14,5 +15,10 @@ $('#clear-search').click(function() {
 });
 
 $('.search-query').keyup(function() {
-  console.log($('.search-query').val());
+  var query = escape($('.search-query').val());
+  // query.replace('#', '!');
+  $.pjax({
+    url: '/?q=' + query,
+    container: '#main'
+  })
 });

@@ -24,7 +24,10 @@
     .container-fluid
       .row-fluid
         .span3
-          = yield
+          %form.well.form-search
+            %input.input-full.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
+            %a#clear-search.close &times;
+          #main= yield
       %footer
         %p © Company 2012
     = javascript_include_tag "application"
