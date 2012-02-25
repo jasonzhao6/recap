@@ -16,11 +16,11 @@
         .container-fluid
           %ul#custom-nav
             %li
-              %a.btn.btn-inverse{href: '/', 'data-pjax' => '#content'} Home
+              %a#home.btn.btn-inverse{href: '/', 'data-pjax' => '#content'} Home
             %li
-              %a.btn.btn-inverse{href: '/new', 'data-pjax' => '#content'} Add new
+              %a#add-new.btn.btn-inverse{href: '/new', 'data-pjax' => '#content'} Add new
             %li
-              %a.btn.btn-inverse Log out
+              %a#log-out.btn.btn-inverse Log out
     .container-fluid
       .row-fluid
         #content.span5

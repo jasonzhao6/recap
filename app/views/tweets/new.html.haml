@@ -1,10 +1,11 @@
-%textarea#tweet.input-full{rows: 3}
-#char-count 1
-.input-prepend
-  %span.add-on #
-  %input#hash-tag.span2{type: 'text'}
-.form-actions
-  %button.btn.btn-primary{type: 'submit'} Save tweet
-  %button.btn Cancel
-%footer
-  %p= auto_link(@quote, :html => { :target => '_blank' })
+= form_for Tweet.new, url: {action: 'create'}, html: {'data-remote' => 'true'} do |f|
+  = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3
+  #char-count 1
+  .input-prepend
+    %span.add-on #
+    =f.text_field :hash_tag, id: 'hash-tag', class: 'span2'
+  .form-actions
+    %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
+    %button.btn Cancel
+  %footer
+    %p= auto_link(@quote, html: {target: '_blank'})

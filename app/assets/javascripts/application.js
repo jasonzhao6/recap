@@ -10,10 +10,10 @@
 //= require jquery.pjax
 //= require_tree .
 
-// Search
+// Ajax search
 function search() {
   var query = escape($('#search').val());
-  $.get('/?ajax=true&q=' + query, function(data) {
+  $.get('/?ajax_search=true&q=' + query, function(data) {
     $('#matches').html(data);
   });
 }
@@ -25,7 +25,7 @@ $('#content').delegate('#clear-search', 'click', function() {
   search();
 });
 
-// Pjax binding
+// <a> pjax binding
 $('a[data-pjax]').pjax();
 
 // Char count
@@ -41,3 +41,12 @@ $('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
     $charCount.css('color', 'red');
   }
 });
+
+// jQuery-ujs tweet#create
+$('#content').delegate('#new_tweet', 'ajax:success', function(event, data, status, xhr) {
+  $('#home').click();
+});
+$('#content').delegate('#new_tweet', 'ajax:error', function(event, data, status, xhr) {
+  alert(data.responseText);
+});
+
