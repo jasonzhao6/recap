@@ -69,9 +69,10 @@ a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
 /*--------*/
 /* Footer */
 /*--------*/
-footer p {
+#quote {
   font-size: 14px;
 }
-footer a {
-  display: none;
+#author {
+  float: right;
+  padding-right: 20px;
 }
