@@ -6,6 +6,6 @@
     = f.text_field :hash_tag, id: 'hash-tag', class: 'span2', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s
   .form-actions
     %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
-    %button.btn Cancel
+    %button.btn Clear
   %footer
-    %p#quote
+    %p#quote= quote

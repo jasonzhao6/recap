@@ -19,10 +19,3 @@ $('#content').delegate('#new_tweet', 'ajax:success', function(event, data, statu
 $('#content').delegate('#new_tweet', 'ajax:error', function(event, data, status, xhr) {
   alert(data.responseText);
 });
-
-// Quote
-$(function() {
-  $.get('/quote', function(data) {
-    $('#quote').html(data);
-  });
-});
