@@ -3,7 +3,7 @@ class Tweet < ActiveRecord::Base
   has_many :votes
   
   validates_presence_of :tweet
-  validates_presence_of :hash_tag
+  validates_presence_of :hash_tag_id
   
   def to_s
     self.tweet

@@ -24,10 +24,11 @@ class TweetsController < ActionController::Base
   end
   
   def new
+    @hash_tags = HashTag.all.map{|h| h.to_s}
     begin # Grab a quote
-      count = 20
-      response = HTTParty.get('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=' + count.to_s)
-      @quote = response[Random.rand(count)]['text']
+      # count = 20
+      # response = HTTParty.get('http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=' + count.to_s)
+      # @quote = response[Random.rand(count)]['text']
     rescue; end
   end
   

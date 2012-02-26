@@ -10,43 +10,5 @@
 //= require jquery.pjax
 //= require_tree .
 
-// Ajax search
-function search() {
-  var query = escape($('#search').val());
-  $.get('/?ajax_search=true&q=' + query, function(data) {
-    $('#matches').html(data);
-  });
-}
-$('#content').delegate('#search', 'keyup', function() {
-  search();
-});
-$('#content').delegate('#clear-search', 'click', function() {
-  $('#search').val('');
-  search();
-});
-
 // <a> pjax binding
 $('a[data-pjax]').pjax();
-
-// Char count
-$('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
-  $hashTag = $('#hash-tag');
-  $hashTag.val($hashTag.val().replace(/ /, '').toLowerCase());
-  var length = $('#tweet').val().length + $hashTag.val().length + 1;
-  var $charCount = $('#char-count');
-  $charCount.text(length);
-  if (length <= 140) {
-    $charCount.css('color', 'black');
-  } else {
-    $charCount.css('color', 'red');
-  }
-});
-
-// jQuery-ujs tweet#create
-$('#content').delegate('#new_tweet', 'ajax:success', function(event, data, status, xhr) {
-  $('#home').click();
-});
-$('#content').delegate('#new_tweet', 'ajax:error', function(event, data, status, xhr) {
-  alert(data.responseText);
-});
-
