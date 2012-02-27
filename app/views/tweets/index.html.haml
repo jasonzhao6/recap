@@ -1,7 +1,7 @@
 - if !@ajax
   %form.well.form-search
-    %input#search.input-large.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
-    %a#clear-search.close{style: "display: #{params[:q] ? 'inline-block' : 'none'}"} &times;
+    %input#search.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
+    %a#clear-search.close.close-large{style: "display: #{params[:q] ? 'inline-block' : 'none'}"} &times;
 #matches
   - if @tweets
     - @tweets.each do |tweet|

@@ -33,6 +33,9 @@ body {
 /*--------*/
 /* Browse */
 /*--------*/
+#search {
+  width: 208px;
+}
 article .date {
   float: right;
 }
