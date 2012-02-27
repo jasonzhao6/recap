@@ -1,4 +1,4 @@
-= form_for Tweet.new, url: {action: 'create'}, html: {'data-remote' => 'true'} do |f|
+= form_for Tweet.new, html: {'data-remote' => 'true'} do |f|
   = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3
   #char-count 2
   .input-prepend
@@ -6,7 +6,7 @@
     = f.text_field :hash_tag, id: 'hash-tag', class: 'span2', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s
   .form-actions
     %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
-    %button.btn Reset
+    %button.btn Cancel
   %footer
     %p#quote
 - if !@pjax

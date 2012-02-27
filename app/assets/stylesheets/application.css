@@ -48,12 +48,24 @@ body {
 /*--------*/
 /* Browse */
 /*--------*/
-/*a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
-  color: #333;
-  text-decoration: none;
-}*/
 article .date {
   float: right;
+}
+article {
+  position: relative;
+}
+.swiped-container {
+  background-color: #F5F5F5;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 126px;
+}
+.options {
+  bottom: 10px;
+  position: absolute;
+  right: 11px;
 }
 
 /*-----------*/
@@ -67,6 +79,25 @@ article .date {
   float: right;
   font-weight: bold;
   margin-top: 4px;
+}
+
+/*------------*/
+/* Edit tweet */
+/*------------*/
+#timestamp-container h4 {
+  margin: 10px 0;
+}
+input[type=date] {
+  margin-right: 4px;
+  width: 120px;
+}
+input[type=time] {
+  width: 93px;
+}
+@media only screen and (max-device-width: 480px) {
+  input[type=date], input[type=time] {
+    height: 30px;
+  }
 }
 
 /*--------*/

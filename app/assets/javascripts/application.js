@@ -8,6 +8,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require jquery.pjax
+//= require swipesense
 //= require_tree .
 
 // <a> pjax binding

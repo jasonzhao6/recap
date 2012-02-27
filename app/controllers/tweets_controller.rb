@@ -14,6 +14,10 @@ class TweetsController < ActionController::Base
     end
   end
   
+  def edit
+    @tweet = Tweet.find params[:id]
+  end
+
   def index
     if query = params[:q].try(:downcase)
       if query[0] == '#'
@@ -26,8 +30,7 @@ class TweetsController < ActionController::Base
     end
   end
   
-  def new
-  end
+  def new; end
   
   def quote
     begin

@@ -5,7 +5,12 @@
 #matches
   - if @tweets
     - @tweets.each do |tweet|
-      %article.well
-        / %a.tweet{href: '#'}= "#{tweet}"
+      %article.well{id: "tweet-#{tweet.id}", ontouchstart: "touchStart(event,'tweet-#{tweet.id}');", ontouchend: "touchEnd(event);", ontouchmove: "touchMove(event);", ontouchcancel: "touchCancel(event);"}
         = "#{tweet}"
         %a{href: "/?q=%23#{tweet.hash_tag}", 'data-pjax' => '#content'}= "##{tweet.hash_tag}"
+        \-
+        %a 6 related
+        .swiped-container
+          .options
+            %a.btn{href: "/tweets/#{tweet.id}/edit", 'data-pjax' => '#content'} Reply
+            %a.btn{href: "/tweets/#{tweet.id}/edit", 'data-pjax' => '#content'} Edit
