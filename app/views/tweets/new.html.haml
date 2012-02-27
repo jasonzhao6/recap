@@ -3,10 +3,10 @@
   #char-count 2
   .input-prepend
     %span.add-on #
-    = f.text_field :hash_tag, id: 'hash-tag', class: 'span2', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s
+    = f.text_field :hash_tag, id: 'hash-tag', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3
   .form-actions
     %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
-    %button.btn Cancel
+    %a.btn Cancel
   %footer
     %p#quote
 - if !@pjax

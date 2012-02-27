@@ -114,9 +114,9 @@ function determineSwipeDirection() {
 }
 
 function processingRoutine() {
-  $el = $('#' + triggerElementID);
+  $el = $('#' + triggerElementID + '');
   if ( swipeDirection == 'left' || swipeDirection == 'right' ) {
-    $el.hide();
+    $el.toggle();
   }
   // var swipedElement = document.getElementById(triggerElementID);
   // if ( swipeDirection == 'left' ) {

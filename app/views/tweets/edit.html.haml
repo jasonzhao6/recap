@@ -1,14 +1,15 @@
 = form_for @tweet, html: {'data-remote' => 'true'} do |f|
   = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3, value: @tweet
+  %a#clear-hash-tag.close &times;
   #char-count= @tweet.length
   .input-prepend
     %span.add-on #
-    = f.text_field :hash_tag, id: 'hash-tag', class: 'span2', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, value: @tweet.hash_tag
-    #timestamp-container
-      %h4 Timestamp
-      %input{type: 'date', value: @tweet.created_at.to_date}
-      %input{type: 'time', value: @tweet.created_at.strftime('%T')}
+    = f.text_field :hash_tag, id: 'hash-tag', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3, value: @tweet.hash_tag
+  #timestamp-container
+    %h4 Timestamp
+    %input{type: 'date', value: @tweet.created_at.to_date}
+    %input{type: 'time', value: @tweet.created_at.strftime('%T')}
   .form-actions
-    %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save edit
-    %button.btn Cancel
-    %button.btn.btn-danger.pull-right Delete
+    %button.btn.btn-primary{type: 'submit'} Save edit
+    %a.btn Cancel
+    %a.btn.btn-danger.pull-right{href: "/tweets/#{@tweet.id}", 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete

@@ -14,6 +14,12 @@ class TweetsController < ActionController::Base
     end
   end
   
+  def destroy
+    tweet = Tweet.find params[:id]
+    tweet.delete
+    redirect_to :root
+  end
+  
   def edit
     @tweet = Tweet.find params[:id]
   end

@@ -31,21 +31,6 @@ body {
 }
 
 /*--------*/
-/* Search */
-/*--------*/
-#clear-search {
-  background-color: grey;
-  box-sizing: border-box;
-  -webkit-border-radius: 14px;
-  -moz-border-radius: 14px;
-  border-radius: 14px;
-  font-size: 24px;
-  height: 28px;
-  padding: 2px 0 0 7px;
-  width: 28px;
-}
-
-/*--------*/
 /* Browse */
 /*--------*/
 article .date {
@@ -56,14 +41,14 @@ article {
 }
 .swiped-container {
   background-color: #F5F5F5;
-  height: 100%;
+  height: 90%;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 10%;
   width: 126px;
 }
 .options {
-  bottom: 10px;
+  bottom: 9px;
   position: absolute;
   right: 11px;
 }
@@ -75,6 +60,9 @@ article {
   padding: 8px;
   margin-top: 8px;
 }
+#hash-tag {
+  width: 210px;
+}
 #char-count {
   float: right;
   font-weight: bold;
@@ -84,6 +72,10 @@ article {
 /*------------*/
 /* Edit tweet */
 /*------------*/
+#clear-hash-tag {
+  left: 261px;
+  position: absolute;
+}
 #timestamp-container h4 {
   margin: 10px 0;
 }
