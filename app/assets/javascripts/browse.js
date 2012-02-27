@@ -1,7 +1,7 @@
 // Ajax search
 function search() {
   var query = escape($('#search').val());
-  $.get('/?ajax_search=true&q=' + query, function(data) {
+  $.get('/?ajax=true&q=' + query, function(data) {
     $('#matches').html(data);
   });
 }

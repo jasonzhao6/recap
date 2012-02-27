@@ -19,3 +19,15 @@ $('#content').delegate('#new_tweet', 'ajax:success', function(event, data, statu
 $('#content').delegate('#new_tweet', 'ajax:error', function(event, data, status, xhr) {
   alert(data.responseText);
 });
+
+// Ajax getQuote
+function getQuote() {
+  $.get('/quote', function(data) {
+    $('#quote').html(data);
+  });
+}
+$('#content').on('pjax:end', function(event, data, status, xhr) {
+  if (data.responseText.indexOf("<p id='quote'></p>") != -1) {
+    getQuote();
+  }
+});

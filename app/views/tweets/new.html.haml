@@ -8,4 +8,10 @@
     %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
     %button.btn Clear
   %footer
-    %p#quote= quote
+    %p#quote
+- if !@pjax
+  - content_for :page_specific_javascript do
+    :javascript
+      $(function() {
+        getQuote();
+      });

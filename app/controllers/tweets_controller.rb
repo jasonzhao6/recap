@@ -26,11 +26,22 @@ class TweetsController < ActionController::Base
   def new
   end
   
+  def quote
+    begin
+      count = 20
+      response = HTTParty.get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=#{count}")
+      render status: 200, inline: response[Random.rand(count)]['text'].gsub('" - ', '"<br /><span id="author">- ').gsub(/\shttp.*\Z/, '</span>').html_safe
+    rescue
+      render status: 400, nothing: true
+    end
+  end
+  
   private
   
   def set_layout
-    @ajax_search = params[:ajax_search] == 'true'
-    if request.headers['X-PJAX'] || @ajax_search
+    @ajax = params[:ajax] == 'true'
+    @pjax = request.headers['X-PJAX'] == 'true'
+    if @ajax || @pjax
       false
     else
       'tweets'
