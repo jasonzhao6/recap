@@ -1,8 +1,6 @@
 // Char count
-$('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
-  $hashTag = $('#hash-tag');
-  $hashTag.val($hashTag.val().replace(/ /, '').toLowerCase());
-  var length = $('#tweet').val().length + $hashTag.val().length + 1;
+function count() {
+  var length = $('#tweet').val().length + $('#hash-tag').val().length + 2;
   var $charCount = $('#char-count');
   $charCount.text(length);
   if (length <= 140) {
@@ -10,6 +8,14 @@ $('#content').delegate('#tweet, #hash-tag', 'keyup', function() {
   } else {
     $charCount.css('color', 'red');
   }
+}
+$('#content').delegate('#tweet', 'keyup', function() {
+  count();
+});
+$('#content').delegate('#hash-tag', 'blur', function() {
+  var $hashTag = $('#hash-tag');
+  $hashTag.val($hashTag.val().replace(/ /g, '').toLowerCase());
+  count();
 });
 
 // jQuery-ujs post

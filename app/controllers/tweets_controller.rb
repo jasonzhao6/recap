@@ -2,6 +2,9 @@ class TweetsController < ActionController::Base
   layout :set_layout
   
   def create
+    if params['tweet'].map{|k, v| v.strip}.reduce(:+).length > 138 # minus 2 chars because of ' #' which comes between tweet and hash tag
+      render status: 400, inline: '140 characters is the maximum allowed' and return
+    end
     hash_tag = params['tweet']['hash_tag'] = HashTag.find_or_create_by_hash_tag(params['tweet']['hash_tag'].downcase.gsub(/[^0-9a-z]/, ''))
     tweet = Tweet.create(params['tweet'])
     if hash_tag.invalid? || tweet.invalid?
