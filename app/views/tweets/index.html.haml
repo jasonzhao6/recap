@@ -6,5 +6,6 @@
   - if @tweets
     - @tweets.each do |tweet|
       %article.well
-        %a.tweet{href: '#'}= "#{tweet}"
+        / %a.tweet{href: '#'}= "#{tweet}"
+        = "#{tweet}"
         %a{href: "/?q=%23#{tweet.hash_tag}", 'data-pjax' => '#content'}= "##{tweet.hash_tag}"

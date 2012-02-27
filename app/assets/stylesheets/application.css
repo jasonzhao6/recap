@@ -48,9 +48,12 @@ body {
 /*--------*/
 /* Browse */
 /*--------*/
-a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
+/*a.tweet, a.tweet:hover, a.tweet:active, a.tweet:visited {
   color: #333;
   text-decoration: none;
+}*/
+article .date {
+  float: right;
 }
 
 /*-----------*/
