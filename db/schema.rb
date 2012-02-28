@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120225054444) do
+ActiveRecord::Schema.define(:version => 20120228074856) do
 
   create_table "hash_tags", :force => true do |t|
     t.datetime "created_at"
@@ -24,13 +24,8 @@ ActiveRecord::Schema.define(:version => 20120225054444) do
     t.datetime "updated_at"
     t.string   "tweet"
     t.integer  "hash_tag_id"
-  end
-
-  create_table "votes", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "is_positive", :default => true
-    t.integer  "tweet_id"
+    t.integer  "ancestor_id"
+    t.integer  "related_count"
   end
 
 end
