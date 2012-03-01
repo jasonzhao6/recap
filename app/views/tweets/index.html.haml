@@ -7,10 +7,10 @@
     - @tweets.each do |tweet|
       %article.well{ontouchstart: "touchStart(event,'edit-#{tweet.id}');", ontouchend: "touchEnd(event);", ontouchmove: "touchMove(event);", ontouchcancel: "touchCancel(event);"}
         = "#{tweet}"
-        %a{href: "/?q=%23#{tweet.hash_tag}", 'data-pjax' => '#content'}= "##{tweet.hash_tag}"
+        %a{href: root_path(q: "##{tweet.hash_tag}"), 'data-pjax' => '#content'}= "##{tweet.hash_tag}"
         \-
-        %a 6 related
+        %a{href: '#'} 6 related
         .swiped-container{id: "edit-#{tweet.id}"}
           .options
-            %a.btn{href: "/tweets/#{tweet.id}/edit", 'data-pjax' => '#content'} Reply
-            %a.btn{href: "/tweets/#{tweet.id}/edit", 'data-pjax' => '#content'} Edit
+            %a.btn{href: tweet_reply_path(tweet), 'data-pjax' => '#content'} Reply
+            %a.btn{href: edit_tweet_path(tweet), 'data-pjax' => '#content'} Edit
