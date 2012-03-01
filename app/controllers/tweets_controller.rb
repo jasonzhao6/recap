@@ -1,4 +1,4 @@
-class TweetsController < ActionController::Base
+class TweetsController < ApplicationController
   layout :set_layout
   before_filter :check_140_chars, only: :create
   
