@@ -10,7 +10,7 @@
         %a{href: root_path(q: "##{tweet.hash_tag}"), 'data-pjax' => '#content'}= "##{tweet.hash_tag}"
         - if tweet.related_count > 1
           \-
-          %a{href: '#'}= "#{tweet.related_count} related"
+          %a{href: tweet_path(tweet)}= "#{tweet.related_count} related"
         .swiped-container{id: "edit-#{tweet.id}"}
           .options
             %a.btn{href: tweet_reply_path(tweet), 'data-pjax' => '#content'} Reply

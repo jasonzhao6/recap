@@ -22,9 +22,9 @@
         .container-fluid
           %ul#custom-nav
             %li
-              %a#home.btn.btn-inverse{href: '/', 'data-pjax' => '#content'} Home
+              %a#home.btn.btn-inverse{href: root_path, 'data-pjax' => '#content'} Home
             %li
-              %a#add-new.btn.btn-inverse{href: '/tweets/new', 'data-pjax' => '#content'} Add
+              %a#add-new.btn.btn-inverse{href: new_tweet_path, 'data-pjax' => '#content'} Add
     .container-fluid
       .row-fluid
         #content.span5
