@@ -1,18 +1,23 @@
 class Tweet < ActiveRecord::Base
   belongs_to :hash_tag
-  belongs_to :ancestor, class_name: 'Tweet', foreign_key: 'ancestor_id'
+  belongs_to :group
   
-  default_scope :include => :hash_tag, :order => ['tweets.created_at DESC']
+  default_scope include: [:hash_tag, :group], order: 'tweets.created_at DESC'
   
   validates_presence_of :tweet
   validates_presence_of :hash_tag_id
+  validates_presence_of :group_id
   
-  def length # of tweet + hashtag
+  def length # of 'tweet #hashtag'
     self.to_s.length + self.hash_tag.to_s.length + 2
   end
   
   def related
-    Tweet.where ancestor_id: ancestor
+    self.group.tweets
+  end
+  
+  def related_count
+    self.group.count
   end
   
   def to_s # of just tweet

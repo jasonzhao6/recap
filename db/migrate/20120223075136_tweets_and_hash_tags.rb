@@ -1,7 +1,6 @@
 class TweetsAndHashTags < ActiveRecord::Migration
   def change
     create_table :hash_tags do |t|
-      t.timestamps
       t.string :name
     end
 

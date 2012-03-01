@@ -1,6 +1,6 @@
 = form_for Tweet.new, html: {'data-remote' => 'true'} do |f|
   - if params[:reply_mode]
-    = f.hidden_field :parent_id, value: params[:tweet_id]
+    = f.hidden_field :group, value: params[:tweet_id]
   = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3
   #char-count 2
   .input-prepend

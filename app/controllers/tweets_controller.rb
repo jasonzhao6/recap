@@ -1,13 +1,18 @@
 class TweetsController < ActionController::Base
   layout :set_layout
   before_filter :check_140_chars, only: :create
-  before_filter :handle_reply_to, only: :create
   
   def create
+    # find or create hash tag
     hash_tag = params['tweet']['hash_tag'] = HashTag.find_or_create_by_hash_tag(params['tweet']['hash_tag'].downcase.gsub(/[^0-9a-z]/, ''))
+    # find or create group, then update group count
+    group = params['tweet']['group'] = params['tweet']['group'] ? Tweet.find(params['tweet']['group']).group : Group.create
+    group.inc
+    # create tweet
     tweet = Tweet.create(params['tweet'])
-    tweet.update_attribute(:ancestor, tweet) unless tweet.ancestor # tweets without ancestors are their own ancestors
+    # response
     if hash_tag.invalid? || tweet.invalid?
+      group.dec
       render status: 400, inline: (hash_tag.errors.messages.merge tweet.errors.messages).map{|k, v| "#{k.to_s.capitalize.gsub(/\_/, ' ')} #{v.first}"}.first.to_s
     else
       render status: 200, nothing: true
@@ -61,18 +66,9 @@ class TweetsController < ActionController::Base
  end
  
  def check_140_chars
-   if params['tweet'].map{|k, v| %w(tweet hash_tag).include?(k) ? v.strip : ''}.reduce(:+).length > 138 # length check, 138 chars because the ' #' between tweet and hash tag takes up 2 chars
+   if params['tweet'].map{|k, v| %w(tweet hash_tag).include?(k) ? v : ''}.reduce(:+).length > 138 # length check, 138 chars because the ' #' between tweet and hash tag takes up 2 chars
      render status: 400, inline: '140 characters is the maximum allowed' and return
    end
  end
- 
- def handle_reply_to
-   if params['tweet']['parent_id'] # if replying, set ancestor_id to parent's ancestor_id, then update ancestor's related_count
-     parent = Tweet.find params['tweet'].delete('parent_id')
-     params['tweet']['ancestor_id'] = parent.ancestor.id
-     parent.ancestor.related_count = parent.ancestor.related_count + 1
-     parent.ancestor.save
-   end
- end
-  
+
 end

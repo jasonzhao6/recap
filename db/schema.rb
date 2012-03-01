@@ -11,12 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120301080627) do
+ActiveRecord::Schema.define(:version => 20120301091005) do
+
+  create_table "groups", :force => true do |t|
+    t.integer "count", :default => 0
+  end
 
   create_table "hash_tags", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "hash_tag"
+    t.string "hash_tag"
   end
 
   add_index "hash_tags", ["hash_tag"], :name => "index_hash_tags_on_hash_tag", :unique => true
@@ -26,8 +28,7 @@ ActiveRecord::Schema.define(:version => 20120301080627) do
     t.datetime "updated_at"
     t.string   "tweet"
     t.integer  "hash_tag_id"
-    t.integer  "ancestor_id"
-    t.integer  "related_count", :default => 0
+    t.integer  "group_id"
   end
 
 end
