@@ -8,8 +8,9 @@
       %article.well{ontouchstart: "touchStart(event,'edit-#{tweet.id}');", ontouchend: "touchEnd(event);", ontouchmove: "touchMove(event);", ontouchcancel: "touchCancel(event);"}
         = "#{tweet}"
         %a{href: root_path(q: "##{tweet.hash_tag}"), 'data-pjax' => '#content'}= "##{tweet.hash_tag}"
-        \-
-        %a{href: '#'} 6 related
+        - if tweet.related_count > 1
+          \-
+          %a{href: '#'}= "#{tweet.related_count} related"
         .swiped-container{id: "edit-#{tweet.id}"}
           .options
             %a.btn{href: tweet_reply_path(tweet), 'data-pjax' => '#content'} Reply
