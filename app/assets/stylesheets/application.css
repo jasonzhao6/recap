@@ -12,15 +12,25 @@
 body {
   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
+li {
+  display: inline-block;
+  list-style-type: none;
+}
+/* Pattern for middle vertical alignment */
+.vertical-align-container {
+  display: table;
+  height: 100%;
+}
+.vertical-align {
+  display: table-cell;
+  vertical-align: middle;
+}
 
 /*------------*/
 /* Navigation */
 /*------------*/
 #custom-nav {
   margin: 0;
-}
-#custom-nav li {
-  display: inline-block;
 }
 #custom-nav li:last-child {
   float: right;
@@ -44,16 +54,13 @@ article {
 }
 .swiped-container {
   background-color: #F5F5F5;
-  height: 90%;
+  display: none;
+  height: 100%;
+  padding: 0 10px;
   position: absolute;
   right: 0;
-  top: 10%;
-  width: 126px;
-}
-.options {
-  bottom: 9px;
-  position: absolute;
-  right: 11px;
+  top: 0;
+  width: 106px;
 }
 
 /*-----------*/
@@ -93,6 +100,30 @@ input[type=time] {
   input[type=date], input[type=time] {
     height: 30px;
   }
+}
+
+/*------------*/
+/* Show tweet */
+/*------------*/
+#slider {
+  height: 100px;
+}
+#slider li {
+  display: none;
+}
+#slider li.active {
+  display: block;
+}
+#sequence {
+  font-size: 27px;
+  margin: 16px 0 0 0;
+  text-align: center;
+}
+#sequence li {
+  color: #ccc;
+}
+#sequence li.active {
+  color: #333;
 }
 
 /*--------*/
