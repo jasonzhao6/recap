@@ -12,7 +12,7 @@ class TweetsController < ApplicationController
       group.dec
       render status: 400, inline: extract_first_error_message(hash_tag.errors.messages.merge tweet.errors.messages)
     else
-      render status: 200, nothing: true
+      render status: 200, nothing: true # js will redirect to homepage, where the new tweet will show at the top
     end
   end
   
@@ -57,7 +57,7 @@ class TweetsController < ApplicationController
       render status: 400, inline: extract_first_error_message(new_hash_tag.errors.messages.merge tweet.errors.messages)
     else
       old_hash_tag.delete if old_hash_tag.tweets.count == 0
-      render status: 200, nothing: true
+      render status: 200, nothing: true # js will redirect to show page, where the updated tweet will be reflected
     end
   end
   
