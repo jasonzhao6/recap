@@ -1,11 +1,11 @@
 #gallery
-  #slider.well.vertical-align-container
-    %ul.vertical-align
+  #slider.well
+    %ul
       - @tweets.each do |tweet|
-        - if tweet.id.to_s == params[:id]
-          %li.active= render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
-        - else
-          %li= render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
+        %li{style: "display: #{tweet.id.to_s == params[:id] ? 'block' : 'none'};"}
+          .vertical-align-container
+            .vertical-align
+              = render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
   %nav
     %ul#sequence
       - @tweets.each do |tweet|
@@ -18,3 +18,8 @@
   %a.btn{href: tweet_reply_path(@tweets.first), 'data-pjax' => '#content'} Reply
   %a.btn{href: edit_tweet_path(@tweets.first), 'data-pjax' => '#content'} Edit
   %a.btn.btn-danger.pull-right{href: tweet_path(@tweets.first), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete
+  - content_for :page_specific_javascript do
+    :javascript
+      $(function() {
+        window.mySwipe = new Swipe(document.getElementById('slider'), {startSlide: 1});
+      });
