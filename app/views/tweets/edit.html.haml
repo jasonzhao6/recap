@@ -1,4 +1,4 @@
-= form_for @tweet, html: {'data-remote' => 'true'} do |f|
+= form_for @tweet, html: {id: 'edit_tweet', 'data-remote' => 'true'} do |f|
   = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3, value: @tweet
   %a#clear-hash-tag.close &times;
   #char-count= @tweet.length

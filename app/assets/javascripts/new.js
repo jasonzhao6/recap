@@ -18,7 +18,7 @@ $('#content').delegate('#hash-tag', 'blur', function() {
   count();
 });
 
-// jQuery-ujs post
+// jQuery-ujs post # this is not necessary, but it makes server-side validation nice (error feedback without page refresh)
 $('#content').delegate('#new_tweet', 'ajax:success', function(event, data, status, xhr) {
   $('#home').click();
 });
