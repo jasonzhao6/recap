@@ -21,5 +21,18 @@
   - content_for :page_specific_javascript do
     :javascript
       $(function() {
-        window.mySwipe = new Swipe(document.getElementById('slider'), {startSlide: 1});
+        var bullets = document.getElementById('sequence').getElementsByTagName('li');
+        window.mySwipe = new Swipe(
+          document.getElementById('slider'),
+          {
+            startSlide: "#{@tweets.first}",
+            callback: function(e, pos) {
+              var i = bullets.length;
+              while (i--) {
+                bullets[i].className = '';
+              }
+              bullets[pos].className = 'active';
+            }
+          }
+        );
       });
