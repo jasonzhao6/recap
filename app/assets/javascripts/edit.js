@@ -1,6 +1,7 @@
 // Clear hash-tag
 $('#content').delegate('#clear-hash-tag', 'click', function() {
   $('#hash-tag').val('');
+  $('#hash-tag').blur();
 });
 
 // jQuery-ujs post # this is not necessary, but it makes server-side validation nice (error feedback without page refresh)
