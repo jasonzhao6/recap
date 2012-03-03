@@ -12,10 +12,42 @@
 //= require swipe
 //= require_tree .
 
-// <a> pjax binding
+// pjax binding
 $('a[data-pjax]').pjax();
-$('#content').delegate('.back', 'click', function() {
+
+// cancel button binding
+$('#content').delegate('.cancel', 'click', function() {
   history.back();
+});
+
+// gallery binding
+function gallerySetup() {
+  var slides = document.getElementById('slider').getElementsByTagName('li');
+  var bullets = document.getElementById('sequence').getElementsByTagName('li');
+  window.mySwipe = new Swipe(
+    document.getElementById('slider'),
+    {
+      startSlide: parseInt($('#start-index').val()),
+      callback: function(e, pos) {
+        // Update bullets
+        var i = bullets.length;
+        while (i--) {
+          bullets[i].className = '';
+        }
+        bullets[pos].className = 'active';
+        // Update form actions
+        var id = slides[pos].id;
+        document.getElementById('reply').href = '/tweets/' + id + '/reply'
+        document.getElementById('edit').href = '/tweets/' + id + '/edit'
+        document.getElementById('delete').href = '/tweets/' + id
+      }
+    }
+  );
+}
+$('body').delegate('#content', 'pjax:success', function(e, xhr, err) {
+  if ($('#gallery').length > 0) {
+    gallerySetup();
+  }
 });
 
 // Url bar hiding

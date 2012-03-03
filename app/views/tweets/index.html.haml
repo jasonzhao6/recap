@@ -9,7 +9,7 @@
         = render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
         - if tweet.related_count > 1
           \-
-          %a{href: tweet_path(tweet)}= "#{tweet.related_count} related"
+          %a{href: tweet_path(tweet), 'data-pjax' => '#content'}= "#{tweet.related_count} related"
         .swiped-container{id: "edit-#{tweet.id}"}
           .vertical-align-container
             .vertical-align
