@@ -45,7 +45,9 @@ class TweetsController < ApplicationController
   def new; end
   
   def show
-    @tweets = Tweet.find(params[:id]).related
+    tweet = Tweet.find(params[:id])
+    @tweets = tweet.related
+    @start_index = @tweets.index tweet
   end
   
   # ajax, so respond inline for js to render
