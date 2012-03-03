@@ -33,7 +33,11 @@
                 bullets[i].className = '';
               }
               bullets[pos].className = 'active';
-              alert(slides[pos].id);
+              
+              var id = slides[pos].id;
+              document.getElementById('reply').href = '/tweets/' + id + '/reply'
+              document.getElementById('edit').href = '/tweets/' + id + '/edit'
+              document.getElementById('delete').href = '/tweets/' + id
             }
           }
         );
