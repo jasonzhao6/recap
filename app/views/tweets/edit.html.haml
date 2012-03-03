@@ -11,5 +11,5 @@
     %input{type: 'time', value: @tweet.created_at.strftime('%T')}
   .form-actions
     %button.btn.btn-primary{type: 'submit'} Save edit
-    %button.btn.back{type: 'button'} Cancel
+    %a.btn{href: tweet_path(@tweet)} Cancel
     %a.btn.btn-danger.pull-right{href: tweet_path(@tweet), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete

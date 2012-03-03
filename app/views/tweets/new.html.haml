@@ -8,7 +8,7 @@
     = f.text_field :hash_tag, id: 'hash-tag', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3
   .form-actions
     %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
-    %button.btn.back{type: 'button'} Cancel
+    %a.btn{href: tweet_path(params[:tweet_id])} Cancel
   %footer
     %p#quote
 - if !@pjax

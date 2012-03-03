@@ -14,9 +14,6 @@
 
 // <a> pjax binding
 $('a[data-pjax]').pjax();
-$('#content').delegate('.back', 'click', function() {
-  history.back();
-});
 
 // Url bar hiding
 (function() {
