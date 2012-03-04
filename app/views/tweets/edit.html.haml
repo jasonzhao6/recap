@@ -1,4 +1,4 @@
-= form_for @tweet, html: {id: 'edit_tweet', 'data-remote' => 'true'} do |f|
+= form_for @tweet, html: {id: 'edit-tweet-form', 'data-remote' => 'true'} do |f|
   = render partial: 'tweet_and_hash_tag_fields', locals: {f: f, tweet: @tweet}
   #timestamp-container
     %h4 Timestamp

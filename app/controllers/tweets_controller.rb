@@ -18,12 +18,13 @@ class TweetsController < ApplicationController
   
   def destroy
     tweet = Tweet.find params[:id]
+    related = tweet.related - Array(tweet)
     hash_tag = tweet.hash_tag
     group = tweet.group
     tweet.delete
     hash_tag.delete if hash_tag.tweets.count == 0
     group.dec
-    redirect_to :root
+    redirect_to related.length > 0 ? tweet_path(related.first) : :root
   end
   
   def edit

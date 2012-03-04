@@ -1,7 +1,7 @@
-= f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3, value: tweet
+= f.text_area :tweet, id: 'tweet-field', class: 'input-full', rows: 3, value: tweet
 - if tweet.try(:hash_tag)
-  %a#clear-hash-tag.close &times;
+  %a#clear-hash-tag-btn.close &times;
 #char-count= tweet.try(:length) || 2
 .input-prepend
   %span.add-on #
-  = f.text_field :hash_tag, id: 'hash-tag', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3, value: tweet.try(:hash_tag)
+  = f.text_field :hash_tag, id: 'hash-tag-field', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3, value: tweet.try(:hash_tag)

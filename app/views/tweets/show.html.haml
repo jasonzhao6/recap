@@ -7,7 +7,7 @@
             .vertical-align
               = render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
   %nav
-    %ul#sequence
+    %ul#position
       - @tweets.each do |tweet|
         - if tweet.id.to_s == params[:id]
           %li.active &bull;

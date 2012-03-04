@@ -1,16 +1,16 @@
 // Clear hash-tag
-$('#content').delegate('#clear-hash-tag', 'click', function() {
-  $('#hash-tag').val('');
-  $('#hash-tag').blur();
+$('#content').delegate('#clear-hash-tag-btn', 'click', function() {
+  $('#hash-tag-field').val('');
+  $('#hash-tag-field').blur();
 });
 
-// jQuery-ujs post # this is not necessary, but it makes server-side validation nice (error feedback without page refresh)
-$('#content').delegate('#edit_tweet', 'ajax:success', function(event, data, status, xhr) {
+// Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
+$('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   $.pjax({
     url: $(this).attr('action'),
     container: '#content'
   });
 });
-$('#content').delegate('#edit_tweet', 'ajax:error', function(event, data, status, xhr) {
+$('#content').delegate('#edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
   alert(data.responseText);
 });

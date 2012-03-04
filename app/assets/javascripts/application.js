@@ -12,13 +12,13 @@
 //= require swipe
 //= require_tree .
 
-// pjax binding
+// pjax() binding
 $('a[data-pjax]').pjax();
 
-// gallery binding
+// gallerySetup() binding, not only here but also on page load when not loaded via pjax (see page source)
 function gallerySetup() {
   var slides = $('#slider li');
-  var bullets = $('#sequence li');
+  var bullets = $('#position li');
   window.mySwipe = new Swipe(
     document.getElementById('slider'),
     {
@@ -32,9 +32,9 @@ function gallerySetup() {
         bullets[pos].className = 'active';
         // Update form actions
         var id = slides[pos].id;
-        $('.reply').attr('href', '/tweets/' + id + '/reply')
-        $('.edit').attr('href', '/tweets/' + id + '/edit')
-        $('.delete').attr('href', '/tweets/' + id)
+        $('.reply-btn').attr('href', '/tweets/' + id + '/reply')
+        $('.edit-btn').attr('href', '/tweets/' + id + '/edit')
+        $('.delete-btn').attr('href', '/tweets/' + id)
       }
     }
   );

@@ -1,4 +1,4 @@
-= form_for Tweet.new, html: {'data-remote' => 'true'} do |f|
+= form_for Tweet.new, html: {id: 'edit-tweet-form', 'data-remote' => 'true'} do |f|
   = render partial: 'tweet_and_hash_tag_fields', locals: {f: f, tweet: nil}
   .form-actions
     = render partial: 'save_cancel_delete_buttons', locals: {tweet: nil, deletable: false}

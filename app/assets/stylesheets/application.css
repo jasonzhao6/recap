@@ -42,7 +42,7 @@ body {
 /*--------*/
 /* Browse */
 /*--------*/
-#search {
+#search-field {
   width: 208px;
 }
 article .date {
@@ -61,15 +61,18 @@ article {
   top: 0;
   width: 106px;
 }
+.swiped-container.active {
+  display: block;
+}
 
 /*-----------*/
 /* New tweet */
 /*-----------*/
-#tweet {
+#tweet-field {
   padding: 8px;
   margin-top: 8px;
 }
-#hash-tag {
+#hash-tag-field {
   width: 210px;
 }
 #char-count {
@@ -81,7 +84,7 @@ article {
 /*------------*/
 /* Edit tweet */
 /*------------*/
-#clear-hash-tag {
+#clear-hash-tag-btn {
   left: 261px;
   position: absolute;
 }
@@ -116,16 +119,16 @@ input[type=time] {
 #slider .vertical-align {
   padding: 16px;
 }
-#sequence {
+#position {
   font-size: 27px;
   margin: 16px 0 0 0;
   text-align: center;
 }
-#sequence li {
+#position li {
   color: #ccc;
   display: inline-block;
 }
-#sequence li.active {
+#position li.active {
   color: #333;
 }
 
