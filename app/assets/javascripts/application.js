@@ -15,11 +15,6 @@
 // pjax binding
 $('a[data-pjax]').pjax();
 
-// cancel button binding
-$('#content').delegate('.cancel', 'click', function() {
-  history.back();
-});
-
 // gallery binding
 function gallerySetup() {
   var slides = document.getElementById('slider').getElementsByTagName('li');
