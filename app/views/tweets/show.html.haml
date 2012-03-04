@@ -15,7 +15,6 @@
           %li &bull;
 %input{id: 'start-index', value: "#{@start_index}", type: 'hidden'}
 .form-actions
-  / TODO .first is not right here
   %a#reply.btn{href: tweet_reply_path(@tweets[@start_index]), 'data-pjax' => '#content'} Reply
   %a#edit.btn{href: edit_tweet_path(@tweets[@start_index]), 'data-pjax' => '#content'} Edit
   %a#delete.btn.btn-danger.pull-right{href: tweet_path(@tweets[@start_index]), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete

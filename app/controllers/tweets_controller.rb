@@ -44,8 +44,12 @@ class TweetsController < ApplicationController
   
   def new; end
   
+  def reply
+    @tweet = Tweet.find params[:tweet_id] if params[:tweet_id]
+  end
+  
   def show
-    tweet = Tweet.find(params[:id])
+    tweet = Tweet.find params[:id]
     @tweets = tweet.related
     @start_index = @tweets.index tweet
   end
