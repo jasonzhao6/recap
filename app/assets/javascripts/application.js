@@ -17,8 +17,8 @@ $('a[data-pjax]').pjax();
 
 // gallery binding
 function gallerySetup() {
-  var slides = document.getElementById('slider').getElementsByTagName('li');
-  var bullets = document.getElementById('sequence').getElementsByTagName('li');
+  var slides = $('#slider li');
+  var bullets = $('#sequence li');
   window.mySwipe = new Swipe(
     document.getElementById('slider'),
     {
@@ -32,9 +32,9 @@ function gallerySetup() {
         bullets[pos].className = 'active';
         // Update form actions
         var id = slides[pos].id;
-        document.getElementById('reply').href = '/tweets/' + id + '/reply'
-        document.getElementById('edit').href = '/tweets/' + id + '/edit'
-        document.getElementById('delete').href = '/tweets/' + id
+        $('.reply').attr('href', '/tweets/' + id + '/reply')
+        $('.edit').attr('href', '/tweets/' + id + '/edit')
+        $('.delete').attr('href', '/tweets/' + id)
       }
     }
   );

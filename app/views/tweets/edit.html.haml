@@ -1,15 +1,8 @@
 = form_for @tweet, html: {id: 'edit_tweet', 'data-remote' => 'true'} do |f|
-  = f.text_area :tweet, id: 'tweet', class: 'input-full', rows: 3, value: @tweet
-  %a#clear-hash-tag.close &times;
-  #char-count= @tweet.length
-  .input-prepend
-    %span.add-on #
-    = f.text_field :hash_tag, id: 'hash-tag', autocomplete: 'off', 'data-provide' => 'typeahead', 'data-source' => hash_tags.to_s, 'data-items' => 3, value: @tweet.hash_tag
+  = render partial: 'tweet_and_hash_tag_fields', locals: {f: f, tweet: @tweet}
   #timestamp-container
     %h4 Timestamp
     %input{type: 'date', value: @tweet.created_at.to_date}
     %input{type: 'time', value: @tweet.created_at.strftime('%T')}
   .form-actions
-    %button.btn.btn-primary{type: 'submit'} Save edit
-    %a.btn{href: tweet_path(@tweet), 'data-pjax' => '#content'} Cancel
-    %a.btn.btn-danger.pull-right{href: tweet_path(@tweet), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete
+    = render partial: 'save_cancel_delete_buttons', locals: {tweet: @tweet, deletable: true}

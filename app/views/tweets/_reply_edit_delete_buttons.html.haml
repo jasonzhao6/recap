@@ -1,0 +1,4 @@
+%a.reply.btn{href: tweet_reply_path(tweet), 'data-pjax' => '#content'} Reply
+%a.edit.btn{href: edit_tweet_path(tweet), 'data-pjax' => '#content'} Edit
+- if deletable
+  %a.delete.btn.btn-danger.pull-right{href: tweet_path(tweet), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow'} Delete
