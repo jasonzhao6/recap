@@ -114,9 +114,12 @@ function determineSwipeDirection() {
 }
 
 function processingRoutine() {
-  $('.swiped-container').removeClass('active');
+  var alreadyActive = $('#' + triggerElementID + '').hasClass('active');
   if ( swipeDirection == 'left' || swipeDirection == 'right' ) {
-    $('#' + triggerElementID + '').addClass('active');
+    $('.swiped-container').removeClass('active');
+    if (!alreadyActive) {
+      $('#' + triggerElementID + '').addClass('active');
+    }
   }
   // var swipedElement = document.getElementById(triggerElementID);
   // if ( swipeDirection == 'left' ) {
