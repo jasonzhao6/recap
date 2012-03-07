@@ -2,8 +2,7 @@ class TweetsController < ApplicationController
   layout :set_layout
   before_filter :check_140_chars, only: [:create, :update]
   
-  # ajax only
-  def create
+  def create # via ajax
     hash_tag = find_or_create_hash_tag_from_params
     group = find_or_create_group_from_params
     group.inc
@@ -36,7 +35,19 @@ class TweetsController < ApplicationController
   end
 
   def index
-    @tweets = Tweet.paginate(page: params[:page])
+    query = params[:q].try(:downcase)
+    if query.blank?
+      @tweets = Tweet.paginate(page: params[:page])
+    else
+      if query[0] == '#'
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
+        if @tweets.length == 0
+          @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
+        end
+      else
+        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
+      end
+    end
   end
   
   def new; end
@@ -51,8 +62,7 @@ class TweetsController < ApplicationController
     @start_index = @tweets.index tweet
   end
   
-  # ajax only
-  def update
+  def update # via ajax
     tweet = Tweet.find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
     new_hash_tag = find_or_create_hash_tag_from_params
@@ -65,9 +75,8 @@ class TweetsController < ApplicationController
     end
   end
   
-  # ajax only
   COUNT = 20
-  def quote
+  def quote_via_ajax
     begin
       response = HTTParty.get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=#{COUNT}")
       render status: 200, inline: response[Random.rand(COUNT)]['text'].gsub('" - ', '"<br /><span id="author">- ').gsub(/\shttp.*\Z/, '</span>').html_safe
@@ -76,22 +85,9 @@ class TweetsController < ApplicationController
     end
   end
   
-  # ajax only
-  def search
-    query = params[:q].try(:downcase)
-    if query
-      if query[0] == '#'
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
-        if @tweets.length == 0
-          @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
-        end
-      else
-        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
-      end
-    else
-      index
-    end
-    @search = true and render :index, layout: false
+  def search_via_ajax
+    index
+    @ajax = true and render :index, layout: false
   end
   
   private
