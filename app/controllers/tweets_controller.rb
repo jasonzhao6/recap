@@ -77,7 +77,7 @@ class TweetsController < ApplicationController
   
   COUNT = 20
   def quote_via_ajax
-    begin
+    begin # TODO VCR this guy, but write another test that tests this live.
       response = HTTParty.get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=#{COUNT}")
       render status: 200, inline: response[Random.rand(COUNT)]['text'].gsub('" - ', '"<br /><span id="author">- ').gsub(/\shttp.*\Z/, '</span>').html_safe
     rescue
