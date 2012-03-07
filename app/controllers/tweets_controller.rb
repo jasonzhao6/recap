@@ -37,6 +37,7 @@ class TweetsController < ApplicationController
     if query = params[:q].try(:downcase)
       if query[0] == '#'
         @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1])
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%") if @tweets.length == 0
       else
         @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%")
       end
