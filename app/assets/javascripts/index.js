@@ -1,16 +1,20 @@
 // Ajax search
 function search() {
-  var $matches = $('#matches');
-  $matches.html('');
   var query = escape($('#search-field').val());
-  $.get('/?ajax=true&q=' + query, function(data) {
-    $matches.html(data);
-  });
+  if (query != '%23') {
+    $.get('/?ajax=true&q=' + query, function(data) {
+      $('#matches').html(data);
+    });
+  }
 }
 $('#content').delegate('#search-field', 'keyup', function() {
   var $clearSearch = $('#clear-search-btn');
   $(this).val().length > 0 ? $clearSearch.show() : $clearSearch.hide()
-  search();
+  if (typeof(searchId) === 'number') {
+    clearTimeout(searchId);
+    searchId = null;
+  }
+  searchId = setTimeout(search, 200);
 });
 $('#content').delegate('#clear-search-btn', 'click', function() {
   $('#search-field').val('');
