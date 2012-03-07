@@ -2,7 +2,7 @@ class TweetsController < ApplicationController
   layout :set_layout
   before_filter :check_140_chars, only: [:create, :update]
   
-  # ajax, so respond inline for js to render
+  # ajax only
   def create
     hash_tag = find_or_create_hash_tag_from_params
     group = find_or_create_group_from_params
@@ -58,7 +58,7 @@ class TweetsController < ApplicationController
     @start_index = @tweets.index tweet
   end
   
-  # ajax, so respond inline for js to render
+  # ajax only
   def update
     tweet = Tweet.find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
@@ -72,7 +72,7 @@ class TweetsController < ApplicationController
     end
   end
   
-  # ajax, so respond inline for js to render
+  # ajax only
   COUNT = 20
   def quote
     begin
