@@ -2,8 +2,8 @@
 function search() {
   $searchField = $('#search-field');
   var query = $searchField.val();
-  if (query.substring(0, 3).toLowerCase() === 'hh ') {
-    query = query.replace(/^hh /i, '#')
+  if (query.substring(0, 2).toLowerCase() === 'h ') {
+    query = query.replace(/^h /i, '#')
     $searchField.val(query);
   }
   if (query != '#') {
