@@ -1,8 +1,13 @@
 // Ajax search
 function search() {
-  var query = escape($('#search-field').val());
-  if (query != '%23') {
-    $.get('/search?q=' + query, function(data) {
+  $searchField = $('#search-field');
+  var query = $searchField.val();
+  if (query.substring(0, 3) === 'hh ') {
+    query = query.replace(/^hh /, '#')
+    $searchField.val(query);
+  }
+  if (query != '#') {
+    $.get('/search?q=' + escape(query), function(data) {
       $('#matches').html(data);
     });
   }
