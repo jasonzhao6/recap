@@ -8,6 +8,7 @@ gem 'pg'
 gem 'rails', '3.1.3'
 gem 'thin'
 gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'will_paginate'
 
 group :assets do
   gem 'coffee-rails', '~> 3.1.1'

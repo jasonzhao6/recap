@@ -3,6 +3,7 @@ class Tweet < ActiveRecord::Base
   belongs_to :group
   
   default_scope include: [:hash_tag, :group], order: 'tweets.created_at DESC'
+  self.per_page = 6
   
   validates_presence_of :tweet
   validates_presence_of :hash_tag_id

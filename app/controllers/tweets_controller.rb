@@ -36,13 +36,13 @@ class TweetsController < ApplicationController
   def index
     if query = params[:q].try(:downcase)
       if query[0] == '#'
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1])
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%") if @tweets.length == 0
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page]) if @tweets.length == 0
       else
-        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%")
+        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
       end
     else
-      @tweets = Tweet.all
+      @tweets = Tweet.paginate(page: params[:page])
     end
   end
   

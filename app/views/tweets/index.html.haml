@@ -14,3 +14,5 @@
           .vertical-align-container
             .vertical-align
               = render partial: 'reply_edit_delete_buttons', locals: {tweet: tweet, deletable: false}
+    #pagination-container
+      = will_paginate @posts, id: 'pagination', class: 'pagination-centered', previous_label: '←', next_label: '→', inner_window: 1, outer_window: 0
