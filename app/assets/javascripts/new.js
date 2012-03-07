@@ -32,7 +32,7 @@ function getQuote() {
     $('#quote').html(data);
   });
 }
-$('#content').on('pjax:end', function(event, data, status, xhr) {
+$('body').delegate('#content', 'pjax:end', function(event, data, status, xhr) {
   if (data.responseText.indexOf("<p id='quote'></p>") != -1) {
     getQuote();
   }

@@ -1,7 +1,7 @@
 %button.btn.btn-primary{type: 'submit', 'data-disable-with' => 'Saving...'} Save tweet
 - if tweet
-  %a.btn{href: tweet_path(tweet), 'data-pjax' => '#content'} Cancel
+  %a.btn{href: tweet_path(tweet), 'data-pjax' => 'true'} Cancel
 - else
   %button.btn{type: 'button', 'onclick' => 'history.back();'} Cancel
 - if deletable
-  %a.delete-btn.btn.btn-danger.pull-right{href: tweet_path(tweet), 'data-pjax' => '#content', 'data-method' => 'delete', rel: 'nofollow', 'data-confirm' => 'Are you sure you want to delete?'} Delete
+  %a.delete-btn.btn.btn-danger.pull-right{href: tweet_path(tweet), 'data-pjax' => 'true', 'data-method' => 'delete', rel: 'nofollow', 'data-confirm' => 'Are you sure you want to delete?'} Delete

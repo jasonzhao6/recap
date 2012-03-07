@@ -13,7 +13,12 @@
 //= require_tree .
 
 // pjax() binding
-$('a[data-pjax]').pjax();
+$('a[data-pjax], #pagination a').pjax('#content');
+$('body').delegate('#content', 'pjax:start', function(e, xhr, err) {
+  $('body, html').animate({
+		scrollTop: 0
+	}, 350);
+});
 
 // gallerySetup() binding, not only here but also on page load when not loaded via pjax (see page source)
 function gallerySetup() {
