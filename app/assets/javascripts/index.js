@@ -2,7 +2,7 @@
 function search() {
   var query = escape($('#search-field').val());
   if (query != '%23') {
-    $.get('/?ajax=true&q=' + query, function(data) {
+    $.get('/search?q=' + query, function(data) {
       $('#matches').html(data);
     });
   }

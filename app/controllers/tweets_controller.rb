@@ -36,16 +36,7 @@ class TweetsController < ApplicationController
   end
 
   def index
-    if query = params[:q].try(:downcase)
-      if query[0] == '#'
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page]) if @tweets.length == 0
-      else
-        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
-      end
-    else
-      @tweets = Tweet.paginate(page: params[:page])
-    end
+    @tweets = Tweet.paginate(page: params[:page])
   end
   
   def new; end
@@ -85,12 +76,28 @@ class TweetsController < ApplicationController
     end
   end
   
+  # ajax only
+  def search
+    query = params[:q].try(:downcase)
+    if query
+      if query[0] == '#'
+        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
+        if @tweets.length == 0
+          @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
+        end
+      else
+        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
+      end
+    else
+      index
+    end
+    @search = true and render :index, layout: false
+  end
+  
   private
   
   def set_layout
-    @ajax = params[:ajax] == 'true'
-    @pjax = request.headers['X-PJAX'] == 'true'
-    if @ajax || @pjax
+    if @pjax = request.headers['X-PJAX'] == 'true'
       false
     else
       'tweets'
