@@ -15,7 +15,6 @@ $('#content').delegate('#tweet-field', 'keyup', function() {
 $('#content').delegate('#hash-tag-field', 'blur', function() {
   var $hashTagField = $('#hash-tag-field');
   $hashTagField.val($hashTagField.val().replace(/ /g, '').toLowerCase());
-  charCount();
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
@@ -23,6 +22,17 @@ $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, 
   $('#home-button').click();
 });
 $('#content').delegate('#new-tweet-form', 'ajax:error', function(event, data, status, xhr) {
+  charCount();
+  alert(data.responseText);
+});
+$('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
+  $.pjax({
+    url: $(this).attr('action'),
+    container: '#content'
+  });
+});
+$('#content').delegate('#edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
+  charCount();
   alert(data.responseText);
 });
 
@@ -36,4 +46,9 @@ $('body').delegate('#content', 'pjax:end', function(event, data, status, xhr) {
   if (data.responseText.indexOf("<p id='quote'></p>") != -1) {
     getQuote();
   }
+});
+
+// Clear hash-tag
+$('#content').delegate('#clear-hash-tag-btn', 'click', function() {
+  $('#hash-tag-field').val('');
 });

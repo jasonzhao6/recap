@@ -16,6 +16,7 @@ class TweetsController < ApplicationController
     end
   end
   
+  # TODO: hash -> edit -> destroy -> hash
   def destroy
     tweet = Tweet.find params[:id]
     this_index = tweet.related.index tweet
@@ -29,6 +30,7 @@ class TweetsController < ApplicationController
     redirect_to related_remainder.length > 0 ? tweet_path(related_remainder[prev_index]) : :root
   end
   
+  # TODO: search -> edit -> save -> search
   def edit
     @tweet = Tweet.find params[:id]
   end
