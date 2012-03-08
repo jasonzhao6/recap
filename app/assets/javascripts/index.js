@@ -69,6 +69,6 @@ $('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
     toPaginate = true;
   });
 });
-$('body').delegate('#to-paginate', 'pjax:end', function(e, xhr, err) {
-  paginateId = setInterval(paginate, 100);
+$('body').delegate('#to-paginate', 'pjax:complete', function(e, xhr, err) {
+  paginateId = setInterval(paginate, 50);
 });
