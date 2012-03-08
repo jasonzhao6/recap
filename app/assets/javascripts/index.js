@@ -37,32 +37,37 @@ $('#content').delegate('.form-search', 'submit', function(e) {
 });
 
 // Pjax pagination binding
-$.fn.slideTo = function(data) {
+// params: { data: [html], direction: 'forward' | 'backword' }
+$.fn.slideIn = function(options) {
   var el = this;
+  var forward = options.direction === 'forward';
   var width = el.width();
-  var transfer = $('<div></div>').width(2 * width);
+  var transfer = $('<div></div>').width(2 * width).css({ marginLeft: forward ? 0 : -width });
   var current = $('<div></div>').width(width).css({ left: 0, float: 'left' }).html(el.html());
-  var next = $('<div></div>').width(width).css({ left: width, float: 'left' }).html(data);
-  transfer.append(current, next);
+  var next = $('<div></div>').width(width).css({ left: width, float: 'left' }).html(options.data);
+  forward ? transfer.append(current, next) : transfer.append(next, current);
   el.html(transfer);
-  transfer.animate({ marginLeft: -width }, 250, function () {
-    el.html(data);
+  transfer.animate({ marginLeft: forward ? -width : 0 }, 250, function () {
+    el.html(options.data);
   });
 }
-var paginated = false;
+var toPaginate = false;
 function paginate() {
-  if (paginated) {
-    paginated = false;
+  if (toPaginate) {
+    toPaginate = false;
     clearInterval(paginateId);
-    $('#content').slideTo($('#paginated').html());
+    $('#content').slideIn({
+      data: $('#to-paginate').html(),
+      direction: parseInt($('#to-paginate .current').text()) > parseInt($('#content .current').text()) ? 'forward' : 'backward'
+    });
   }
 }
-$('#pagination a').pjax('#paginated');
-$('body').delegate('#paginated', 'pjax:start', function(e, xhr, err) {
+$('#pagination a').pjax('#to-paginate');
+$('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
   $('body, html').animate({ scrollTop: 0 }, 350, function() {
-    setTimeout('paginated = true;', 100);
+    setTimeout('toPaginate = true;', 50);
   });
 });
-$('body').delegate('#paginated', 'pjax:end', function(e, xhr, err) {
+$('body').delegate('#to-paginate', 'pjax:end', function(e, xhr, err) {
   paginateId = setInterval(paginate, 100);
 });
