@@ -59,7 +59,7 @@ function paginate() {
     clearInterval(paginateId);
     $('#matches').fadeTo(0, .5, function() {
       $(this).html($('#to-paginate').html());
-      $(this).delay(250).fadeTo(0, 1);
+      $(this).delay(200).fadeTo(0, 1);
     });
   }
 }
