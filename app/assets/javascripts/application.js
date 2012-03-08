@@ -12,13 +12,8 @@
 //= require swipe
 //= require_tree .
 
-// pjax() binding
-$('a[data-pjax], #pagination a').pjax('#content');
-$('body').delegate('#content', 'pjax:start', function(e, xhr, err) {
-  $('body, html').animate({
-		scrollTop: 0
-	}, 350);
-});
+// Pjax anchor binding
+$('a[data-pjax]').pjax('#content');
 
 // Url bar hiding
 (function() {

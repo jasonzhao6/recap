@@ -35,3 +35,34 @@ $('#content').delegate('#clear-search-btn', 'click', function() {
 $('#content').delegate('.form-search', 'submit', function(e) {
   e.preventDefault();
 });
+
+// Pjax pagination binding
+$.fn.slideTo = function(data) {
+  var el = this;
+  var width = el.width();
+  var transfer = $('<div></div>').width(2 * width);
+  var current = $('<div></div>').width(width).css({ left: 0, float: 'left' }).html(el.html());
+  var next = $('<div></div>').width(width).css({ left: width, float: 'left' }).html(data);
+  transfer.append(current, next);
+  el.html(transfer);
+  transfer.animate({ marginLeft: -width }, 250, function () {
+    el.html(data);
+  });
+}
+var paginated = false;
+function paginate() {
+  if (paginated) {
+    paginated = false;
+    clearInterval(paginateId);
+    $('#content').slideTo($('#paginated').html());
+  }
+}
+$('#pagination a').pjax('#paginated');
+$('body').delegate('#paginated', 'pjax:start', function(e, xhr, err) {
+  $('body, html').animate({ scrollTop: 0 }, 350, function() {
+    setTimeout('paginated = true;', 100);
+  });
+});
+$('body').delegate('#paginated', 'pjax:end', function(e, xhr, err) {
+  paginateId = setInterval(paginate, 100);
+});

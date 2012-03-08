@@ -1,5 +1,5 @@
 - if !@ajax
-  %form.well.form-search
+  %form#search.well.form-search
     %input#search-field.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
     %a#clear-search-btn.close.close-large{style: "display: #{params[:q] ? 'inline-block' : 'none'}"} &times;
 #matches

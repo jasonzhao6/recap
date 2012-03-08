@@ -2,7 +2,10 @@ class TweetsController < ApplicationController
   layout :set_layout
   before_filter :check_140_chars, only: [:create, :update]
   
-  def create # via ajax
+   # via ajax
+   # on error, return error message with 400, client should show error message
+   # on success, return nothing with 200, client should redirect to homepage
+  def create
     hash_tag = find_or_create_hash_tag_from_params
     group = find_or_create_group_from_params
     group.inc
@@ -11,11 +14,14 @@ class TweetsController < ApplicationController
       group.dec
       render status: 400, inline: extract_first_error_message(hash_tag.errors.messages.merge tweet.errors.messages)
     else
-      render status: 200, nothing: true # js will redirect to homepage, where the new tweet will show at the top
+      render status: 200, nothing: true
     end
   end
   
   # TODO: hash -> edit -> destroy -> hash
+  # delete this tweet
+  # if it's the last one in its group, delete the group; otherwise, decrement the group count
+  # if its hash tag is not used by any other tweet, delete the hash tag
   def destroy
     tweet = Tweet.find params[:id]
     this_index = tweet.related.index tweet
@@ -30,6 +36,7 @@ class TweetsController < ApplicationController
   end
   
   # TODO: search -> edit -> save -> search
+  # show the tweet we are editing
   def edit
     @tweet = Tweet.find params[:id]
   end
@@ -52,17 +59,22 @@ class TweetsController < ApplicationController
   
   def new; end
   
+  # show the tweet that we are replying to
   def reply
     @tweet = Tweet.find params[:tweet_id] if params[:tweet_id]
   end
   
+  # show this tweet in a slide gallery with its related tweets
   def show
     tweet = Tweet.find params[:id]
     @tweets = tweet.related
     @start_index = @tweets.index tweet
   end
   
-  def update # via ajax
+  # via ajax
+  # on error, return error message with 400, client should show error message
+  # on success, return nothing with 200, client should ???
+  def update
     tweet = Tweet.find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
     new_hash_tag = find_or_create_hash_tag_from_params
@@ -71,10 +83,13 @@ class TweetsController < ApplicationController
       render status: 400, inline: extract_first_error_message(new_hash_tag.errors.messages.merge tweet.errors.messages)
     else
       old_hash_tag.delete if old_hash_tag.tweets.count == 0
-      render status: 200, nothing: true # js will redirect to show page, where the updated tweet will be reflected
+      render status: 200, nothing: true
     end
   end
   
+  # via ajax
+  # on error, return nothing with 408
+  # on success, return quote with 200
   COUNT = 20
   def quote
     begin # TODO VCR this guy, but write another test that tests this live.

@@ -39,11 +39,17 @@ body {
   margin: 3px 0 4px;
 }
 
-/*--------*/
-/* Browse */
-/*--------*/
+/*-------*/
+/* Index */
+/*-------*/
+#search {
+  margin-bottom: 0;
+}
 #search-field {
   width: 208px;
+}
+#matches {
+  overflow: hidden;
 }
 article .date {
   float: right;
@@ -63,6 +69,9 @@ article {
 }
 .swiped-container.active {
   display: block;
+}
+#paginated {
+  display: none;
 }
 
 /*------------*/
