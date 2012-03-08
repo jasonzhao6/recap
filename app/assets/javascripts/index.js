@@ -37,37 +37,38 @@ $('#content').delegate('.form-search', 'submit', function(e) {
 });
 
 // Pjax pagination binding
+// NOTE: This is unfortunately too expensive to render on mobile.
 // params: { data: [html], direction: 'forward' | 'backword' }
-$.fn.slideIn = function(options) {
-  var el = this;
-  var forward = options.direction === 'forward';
-  var width = el.width();
-  var transfer = $('<div></div>').width(2 * width).css({ marginLeft: forward ? 0 : -width });
-  var current = $('<div></div>').width(width).css({ left: 0, float: 'left' }).html(el.html());
-  var next = $('<div></div>').width(width).css({ left: width, float: 'left' }).html(options.data);
-  forward ? transfer.append(current, next) : transfer.append(next, current);
-  el.html(transfer);
-  transfer.animate({ marginLeft: forward ? -width : 0 }, 250, function () {
-    el.html(options.data);
-  });
-}
+// $.fn.slideIn = function(options) {
+//   var el = this;
+//   var forward = options.direction === 'forward';
+//   var width = el.width();
+//   var transfer = $('<div></div>').width(2 * width).css({ marginLeft: forward ? 0 : -width });
+//   var current = $('<div></div>').width(width).css({ left: 0, float: 'left' }).html(el.html());
+//   var next = $('<div></div>').width(width).css({ left: width, float: 'left' }).html(options.data);
+//   forward ? transfer.append(current, next) : transfer.append(next, current);
+//   el.html(transfer);
+//   transfer.animate({ marginLeft: forward ? -width : 0 }, 250, function () {
+//     el.html(options.data);
+//   });
+// }
 var toPaginate = false;
 function paginate() {
   if (toPaginate) {
     toPaginate = false;
     clearInterval(paginateId);
-    $('#content').slideIn({
-      data: $('#to-paginate').html(),
-      direction: parseInt($('#to-paginate .current').text()) > parseInt($('#content .current').text()) ? 'forward' : 'backward'
+    $('#matches').fadeTo(0, .5, function() {
+      $(this).html($('#to-paginate').html());
+      $(this).delay(50).fadeTo(0, 1);
     });
   }
 }
 $('#pagination a').pjax('#to-paginate');
 $('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
   $('body, html').animate({ scrollTop: 0 }, 350, function() {
-    setTimeout('toPaginate = true;', 50);
+    toPaginate = true;
   });
 });
 $('body').delegate('#to-paginate', 'pjax:end', function(e, xhr, err) {
-  paginateId = setInterval(paginate, 100);
+  paginateId = setInterval(paginate, 50);
 });
