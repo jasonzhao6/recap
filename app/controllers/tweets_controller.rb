@@ -76,7 +76,7 @@ class TweetsController < ApplicationController
   end
   
   COUNT = 20
-  def quote_via_ajax
+  def quote
     begin # TODO VCR this guy, but write another test that tests this live.
       response = HTTParty.get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=#{COUNT}")
       render status: 200, inline: response[Random.rand(COUNT)]['text'].gsub('" - ', '"<br /><span id="author">- ').gsub(/\shttp.*\Z/, '</span>').html_safe
@@ -85,15 +85,12 @@ class TweetsController < ApplicationController
     end
   end
   
-  def search_via_ajax
-    index
-    @ajax = true and render :index, layout: false
-  end
-  
   private
   
   def set_layout
-    if @pjax = request.headers['X-PJAX'] == 'true'
+    @ajax = request.headers['X-AJAX'] == 'true'
+    @pjax = request.headers['X-PJAX'] == 'true'
+    if @ajax || @pjax
       false
     else
       'tweets'

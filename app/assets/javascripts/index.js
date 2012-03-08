@@ -7,8 +7,14 @@ function search() {
     $searchField.val(query);
   }
   if (query != '#') {
-    $.get('/search?q=' + escape(query), function(data) {
-      $('#matches').html(data);
+    $.ajax({
+      url: '/?q=' + escape(query),
+      headers: {
+        'X-AJAX': true
+      },
+      success: function(data) {
+        $('#matches').html(data);
+      }
     });
   }
 }
