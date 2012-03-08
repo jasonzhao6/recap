@@ -57,11 +57,11 @@ article {
 .swiped-container {
   background-color: #F5F5F5;
   display: none;
-  height: 100%;
+  height: 80%;
   padding: 0 10px;
   position: absolute;
   right: 0;
-  top: 0;
+  top: 10%;
   width: 106px;
 }
 .swiped-container.active {
