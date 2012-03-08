@@ -59,7 +59,7 @@ function paginate() {
     clearInterval(paginateId);
     $('#matches').fadeTo(0, .5, function() {
       $(this).html($('#to-paginate').html());
-      $(this).delay(50).fadeTo(0, 1);
+      $(this).delay(250).fadeTo(0, 1);
     });
   }
 }
@@ -70,5 +70,5 @@ $('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
   });
 });
 $('body').delegate('#to-paginate', 'pjax:end', function(e, xhr, err) {
-  paginateId = setInterval(paginate, 50);
+  paginateId = setInterval(paginate, 100);
 });
