@@ -1,0 +1,1 @@
+BASIC_AUTH = YAML::load(File.open(File.join(Rails.root, 'config', 'basic_auth.yml'))) rescue nil
