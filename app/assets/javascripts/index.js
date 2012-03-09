@@ -37,7 +37,6 @@ $('#content').delegate('.form-search', 'submit', function(e) {
 });
 
 // Pjax pagination binding
-// NOTE: This is unfortunately too expensive to render on mobile.
 // params: { data: [html], direction: 'forward' | 'backword' }
 // $.fn.slideIn = function(options) {
 //   var el = this;
@@ -57,10 +56,8 @@ function paginate() {
   if (toPaginate) {
     toPaginate = false;
     clearInterval(paginateId);
-    $('#matches').fadeTo(0, .5, function() {
-      $(this).html($('#to-paginate').html());
-      $(this).delay(200).fadeTo(0, 1);
-    });
+    // slideIn is too expensive to render, this is a light weight substitute
+    $('#matches').css('opacity', 0.5).html($('#to-paginate').html()).delay(200).fadeTo(0, 1);
   }
 }
 $('#pagination a').pjax('#to-paginate');
