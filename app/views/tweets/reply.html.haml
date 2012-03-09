@@ -4,4 +4,4 @@
   = f.hidden_field :group, value: @tweet.id
   = render partial: 'tweet_and_hash_tag_fields', locals: {f: f, tweet: nil}
   .form-actions
-    = render partial: 'save_cancel_delete_buttons', locals: {tweet: @tweet, deletable: false}
+    = render partial: 'delete_cancel_save_buttons', locals: {tweet: @tweet, deletable: false}
