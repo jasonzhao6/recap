@@ -11,10 +11,8 @@ var curX = 0;
 var curY = 0;
 var deltaX = 0;
 var deltaY = 0;
-var minLength = 25; // the shortest distance the user may swipe
+var minLength = 20; // the shortest distance the user may swipe
 var swipeLength = 0;
-var swipeAngle = null;
-var swipeDirection = null;
 var isScrollingHorizontally = null;
 
 // The 4 Touch Event Handlers
@@ -55,8 +53,6 @@ function touchMove(event) {
       event.preventDefault();
       swipeLength = Math.round(Math.sqrt(Math.pow(curX - startX,2) + Math.pow(curY - startY,2)));
       if ( swipeLength >= minLength ) {
-        caluculateAngle();
-        determineSwipeDirection();
         processingRoutine();
         touchCancel(event);
       }
@@ -79,41 +75,14 @@ function touchCancel(event) {
   deltaX = 0;
   deltaY = 0;
   swipeLength = 0;
-  swipeAngle = null;
-  swipeDirection = null;
   isScrollingHorizontally = null;
-}
-
-function caluculateAngle() {
-  var X = startX-curX;
-  var Y = curY-startY;
-  var Z = Math.round(Math.sqrt(Math.pow(X,2)+Math.pow(Y,2))); //the distance - rounded - in pixels
-  var r = Math.atan2(Y,X); //angle in radians (Cartesian system)
-  swipeAngle = Math.round(r*180/Math.PI); //angle in degrees
-  if ( swipeAngle < 0 ) { swipeAngle =  360 - Math.abs(swipeAngle); }
-}
-
-function determineSwipeDirection() {
-  if ( (swipeAngle <= 45) && (swipeAngle >= 0) ) {
-    swipeDirection = 'left';
-  } else if ( (swipeAngle <= 360) && (swipeAngle >= 315) ) {
-    swipeDirection = 'left';
-  } else if ( (swipeAngle >= 135) && (swipeAngle <= 225) ) {
-    swipeDirection = 'right';
-  } else if ( (swipeAngle > 45) && (swipeAngle < 135) ) {
-    swipeDirection = 'down';
-  } else {
-    swipeDirection = 'up';
-  }
 }
 
 function processingRoutine() {
   var alreadyActive = $('#' + triggerElementID + '').hasClass('active');
-  if ( swipeDirection == 'left' || swipeDirection == 'right' ) {
-    $('.swiped-container').removeClass('active');
-    if (!alreadyActive) {
-      // fadeIn is too expensive to render, this is a light weight substitute
-      $('#' + triggerElementID + '').css('opacity', .9).addClass('active').delay(100).fadeTo(0, 1);
-    }
+  $('.swiped-container').removeClass('active');
+  if (!alreadyActive) {
+    // fadeIn is too expensive to render, this is a light weight substitute
+    $('#' + triggerElementID + '').css('opacity', .9).addClass('active').delay(100).fadeTo(0, 1);
   }
 }
