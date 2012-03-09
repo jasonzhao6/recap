@@ -14,6 +14,9 @@
 
 // Pjax anchor binding
 $('a[data-pjax]').pjax('#content');
+$('body').delegate('#content', 'pjax:start', function(e, xhr, err) {
+  $('body, html').animate({ scrollTop: 0 }, 350);
+});
 
 // Url bar hiding
 (function() {
