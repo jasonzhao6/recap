@@ -9,6 +9,9 @@
 /*--------*/
 /* Layout */
 /*--------*/
+body {
+  max-width: 500px;
+}
 /* Pattern for middle vertical alignment */
 .vertical-align-container {
   display: table;
