@@ -1,4 +1,7 @@
-%a.reply-btn.btn{href: tweet_reply_path(tweet), 'data-pjax' => 'true'} Reply
-%a.edit-btn.btn{href: edit_tweet_path(tweet), 'data-pjax' => 'true'} Edit
-- if deletable
-  %a.delete-btn.btn.btn-danger.pull-right{href: tweet_path(tweet), 'data-pjax' => 'true', 'data-method' => 'delete', rel: 'nofollow', 'data-confirm' => 'Are you sure you want to delete?'} Delete
+.clearfix
+  .pull-left
+    - if deletable
+      %a.delete-btn.btn.btn-danger{href: tweet_path(tweet), 'data-pjax' => 'true', 'data-method' => 'delete', rel: 'nofollow', 'data-confirm' => 'Are you sure you want to delete?'} Delete
+  .pull-right
+    %a.reply-btn.btn{href: tweet_reply_path(tweet), 'data-pjax' => 'true'} Reply
+    %a.edit-btn.btn{href: edit_tweet_path(tweet), 'data-pjax' => 'true'} Edit
