@@ -15,9 +15,8 @@ function gallerySetup() {
         bullets[pos].className = 'active';
         // Update form actions
         var id = slides[pos].id;
-        $('.reply-btn').attr('href', '/tweets/' + id + '/reply')
-        $('.edit-btn').attr('href', '/tweets/' + id + '/edit')
-        $('.delete-btn').attr('href', '/tweets/' + id)
+        $('.reply-btn').attr('href', '/tweets/' + id + '/reply?origin=show')
+        $('.edit-btn').attr('href', '/tweets/' + id + '/edit?origin=show')
       }
     }
   );
