@@ -18,21 +18,31 @@ class TweetsController < ApplicationController
     end
   end
   
-  # TODO: hash -> edit -> destroy -> hash
   # delete this tweet
-  # if it's the last one in its group, delete the group; otherwise, decrement the group count
-  # if its hash tag is not used by any other tweet, delete the hash tag
   def destroy
+    # gather everything affected by this delete action
     tweet = Tweet.find params[:id]
-    this_index = tweet.related.index tweet
-    prev_index = this_index > 0 ? this_index - 1 : 0
-    related_remainder = tweet.related - Array(tweet)
     hash_tag = tweet.hash_tag
     group = tweet.group
+
+    # if origin is :show, we want to return to :show, showing the tweet previous to this one
+    if params[:origin] == 'show'
+      this_index = tweet.related.index tweet
+      prev_index = this_index > 0 ? this_index - 1 : 0
+      related_remainder = tweet.related - Array(tweet)
+    end
+
+    # go ahead with the delete
     tweet.delete
-    hash_tag.delete if hash_tag.tweets.count == 0
+    hash_tag.delete if hash_tag.tweets.count == 0 # if its hash tag is not used by any other tweet, delete the hash tag
     group.dec
-    redirect_to related_remainder.length > 0 ? tweet_path(related_remainder[prev_index]) : :root
+
+    # return to either :show or the last :index user was on retaining any search query and pagination info
+    if params[:origin] == 'show'
+      redirect_to related_remainder.length > 0 ? tweet_path(related_remainder[prev_index]) : :root
+    else
+      redirect_to tweets_path(q: params[:q], page: params[:page])
+    end
   end
   
   # TODO: search -> edit -> save -> search
@@ -41,6 +51,7 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find params[:id]
   end
 
+  # show all tweets; handle search queries and pagination
   def index
     query = params[:q].try(:downcase)
     if query.blank?

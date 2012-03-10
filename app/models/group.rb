@@ -6,7 +6,7 @@ class Group < ActiveRecord::Base
   end
   
   def dec
-    if self.count == 1
+    if self.count == 1 # if it's the last one in its group, delete the group; otherwise, decrement the group count
       self.delete
     else
       self.update_attribute(:count, self.count - 1)
