@@ -23,25 +23,19 @@ $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, 
   $('#home-button').click();
 });
 $('#content').delegate('#new-tweet-form', 'ajax:error', function(event, data, status, xhr) {
-  charCount();
   alert(data.responseText);
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
-  var url;
-  if (params()['origin'] === 'show') {
-    url = $(this).attr('action');
-  } else { // 'index'
-    url = '/?q=' + params()['q'] + '&page=' + params()['page']
-    url = url.replace(/q=undefined&/, '');
-    url = url.replace(/page=undefined/, '');
-  }
+  var url = (params()['origin'] === 'show') ? $(this).attr('action') : '/';
+  var parameters = '?q=' + params()['q'] + '&page=' + params()['page']
+  parameters = parameters.replace(/q=undefined&/, '');
+  parameters = parameters.replace(/page=undefined/, '');
   $.pjax({
-    url: url,
+    url: url + parameters,
     container: '#content'
   });
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
-  charCount();
   alert(data.responseText);
 });
 

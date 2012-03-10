@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   layout :set_layout
-  before_filter :check_140_chars_and_trim, only: [:create, :update]
+  before_filter :check_140_chars_and_trim, only: [:create, :update] # this should probably be done at the model level, but since it involves 2 separate models, it made sense to do it here
   
    # via ajax
    # on error, return error message with 400, client should show error message
