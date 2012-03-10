@@ -1,6 +1,6 @@
 .clearfix
   .pull-left
-    - if deletable
+    - if show_delete # show delete button on tweets#show but not in the swipe-activitade menu on tweets#index
       %button.btn{type: 'button', 'onclick' => 'history.back();'} Back
   .pull-right
     %a.reply-btn.btn{href: tweet_reply_path(tweet), 'data-pjax' => 'true'} Reply

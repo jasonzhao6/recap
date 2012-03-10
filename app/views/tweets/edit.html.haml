@@ -5,4 +5,4 @@
     %input{type: 'date', value: @tweet.created_at.to_date}
     %input{type: 'time', value: @tweet.created_at.strftime('%T')}
   .form-actions
-    = render partial: 'delete_cancel_save_buttons', locals: {tweet: @tweet, deletable: true}
+    = render partial: 'delete_cancel_save_buttons', locals: {tweet: @tweet, show_delete: true}

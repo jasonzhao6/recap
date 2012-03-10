@@ -13,6 +13,9 @@
         .swiped-container{id: "swiped-#{tweet.id}"}
           .vertical-align-container
             .vertical-align
-              = render partial: 'back_reply_edit_buttons', locals: {tweet: tweet, deletable: false}
+              = render partial: 'back_reply_edit_buttons', locals: {tweet: tweet, show_delete: false}
     #pagination-container
       = will_paginate @posts, id: 'pagination', class: 'pagination-centered', previous_label: '←', next_label: '→', inner_window: 1, outer_window: 0
+:javascript
+  console.log("#{params[:q]}");
+  console.log("#{params[:page] || 1}");
