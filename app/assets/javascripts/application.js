@@ -45,3 +45,12 @@ $('body').delegate('#content', 'pjax:start', function(e, xhr, err) {
     }
   }
 })();
+
+// Url params parsing
+function params() {
+  var vars = {};
+  var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      vars[key] = value;
+  });
+  return vars;
+}

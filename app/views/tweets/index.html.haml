@@ -16,6 +16,3 @@
               = render partial: 'back_reply_edit_buttons', locals: {tweet: tweet}
     #pagination-container
       = will_paginate @posts, id: 'pagination', class: 'pagination-centered', previous_label: '←', next_label: '→', inner_window: 1, outer_window: 0
-:javascript
-  console.log("#{params[:q]}");
-  console.log("#{params[:page] || 1}");

@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   layout :set_layout
-  before_filter :check_140_chars, only: [:create, :update]
+  before_filter :check_140_chars_and_trim, only: [:create, :update]
   
    # via ajax
    # on error, return error message with 400, client should show error message
@@ -45,7 +45,6 @@ class TweetsController < ApplicationController
     end
   end
   
-  # TODO: search -> edit -> save -> search
   # show the tweet we are editing
   def edit
     @tweet = Tweet.find params[:id]
@@ -84,7 +83,7 @@ class TweetsController < ApplicationController
   
   # via ajax
   # on error, return error message with 400, client should show error message
-  # on success, return nothing with 200, client should ???
+  # on success, return nothing with 200, client should redirect to either :show or :index
   def update
     tweet = Tweet.find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
@@ -123,7 +122,8 @@ class TweetsController < ApplicationController
     end
   end
 
-  def check_140_chars
+  def check_140_chars_and_trim
+    params['tweet']['tweet'].strip!
     if params['tweet'].map{|k, v| %w(tweet hash_tag).include?(k) ? v : ''}.reduce(:+).length > 138 # length check, 138 chars because the ' #' between tweet and hash tag takes up 2 chars
       render status: 400, inline: '140 characters is the maximum allowed' and return
     end

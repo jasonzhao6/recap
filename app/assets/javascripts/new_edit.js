@@ -1,4 +1,4 @@
-// charCount() binding
+// Count number of characters when typing in either tweet or hashtag field
 function charCount() {
   var length = $('#tweet-field').val().length + $('#hash-tag-field').val().length + 2;
   var $charCount = $('#char-count');
@@ -15,7 +15,7 @@ $('#content').delegate('#tweet-field', 'keyup', function() {
 $('#content').delegate('#hash-tag-field', 'blur', function() {
   var $hashTagField = $('#hash-tag-field');
   $hashTagField.val($hashTagField.val().replace(/ /g, '').toLowerCase());
-  setTimeout(charCount, 25); // delay charCount() until Twitter Bootstrap's Typeahead runs
+  setTimeout(charCount, 25); // Delay charCount() until Twitter Bootstrap's Typeahead runs
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
@@ -27,8 +27,16 @@ $('#content').delegate('#new-tweet-form', 'ajax:error', function(event, data, st
   alert(data.responseText);
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
+  var url;
+  if (params()['origin'] === 'show') {
+    url = $(this).attr('action');
+  } else { // 'index'
+    url = '/?q=' + params()['q'] + '&page=' + params()['page']
+    url = url.replace(/q=undefined&/, '');
+    url = url.replace(/page=undefined/, '');
+  }
   $.pjax({
-    url: $(this).attr('action'),
+    url: url,
     container: '#content'
   });
 });
@@ -37,7 +45,8 @@ $('#content').delegate('#edit-tweet-form', 'ajax:error', function(event, data, s
   alert(data.responseText);
 });
 
-// getQuote() binding, not only here but also on page load when not loaded via pjax (see page source)
+// Get quote from twitter for when adding new tweet
+// This is called not only here but also on page load in new.html.haml for when page is not loaded via pjax
 function getQuote() {
   $.get('/quote', function(data) {
     $('#quote').html(data);
@@ -49,7 +58,7 @@ $('body').delegate('#content', 'pjax:end', function(event, data, status, xhr) {
   }
 });
 
-// Clear hash-tag
+// Hash tag clear button displayed on edit page
 $('#content').delegate('#clear-hash-tag-btn', 'click', function() {
   $('#hash-tag-field').val('');
 });
