@@ -15,7 +15,7 @@ $('#content').delegate('#tweet-field', 'keyup', function() {
 $('#content').delegate('#hash-tag-field', 'blur', function() {
   var $hashTagField = $('#hash-tag-field');
   $hashTagField.val($hashTagField.val().replace(/ /g, '').toLowerCase());
-  charCount();
+  setTimeout(charCount, 25); // delay charCount() until Twitter Bootstrap's Typeahead runs
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)

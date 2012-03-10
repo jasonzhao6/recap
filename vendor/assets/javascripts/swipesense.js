@@ -83,6 +83,6 @@ function processingRoutine() {
   $('.swiped-container').removeClass('active');
   if (!alreadyActive) {
     // fadeIn is too expensive to render, this is a light weight substitute
-    $('#' + triggerElementID + '').css('opacity', .9).addClass('active').delay(100).fadeTo(0, 1);
+    $('#' + triggerElementID + '').css('opacity', .9).addClass('active').delay(75).fadeTo(0, 1);
   }
 }
