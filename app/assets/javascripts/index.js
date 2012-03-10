@@ -25,7 +25,7 @@ $('#content').delegate('#search-field', 'keyup', function() {
     clearTimeout(searchId);
     searchId = null;
   }
-  searchId = setTimeout(search, 200);
+  searchId = setTimeout(search, 450);
 });
 $('#content').delegate('#clear-search-btn', 'click', function() {
   $('#search-field').val('');
@@ -51,21 +51,14 @@ $('#content').delegate('.form-search', 'submit', function(e) {
 //     el.html(options.data);
 //   });
 // }
-var toPaginate = false;
 function paginate() {
-  if (toPaginate) {
-    toPaginate = false;
-    clearInterval(paginateId);
-    // slideIn is too expensive to render, this is a light weight substitute
-    $('#matches').css('opacity', 0.5).html($('#to-paginate').html()).delay(200).fadeTo(0, 1);
-  }
+  // slideIn is too expensive to render, this is a light weight substitute
+  $('#content').html($('#to-paginate').html());
 }
 $('#pagination a').pjax('#to-paginate');
 $('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
-  $('body, html').animate({ scrollTop: 0 }, 350, function() {
-    toPaginate = true;
-  });
+  $('body, html').animate({ scrollTop: 0 }, 350);
 });
 $('body').delegate('#to-paginate', 'pjax:complete', function(e, xhr, err) {
-  paginateId = setInterval(paginate, 50);
+  setTimeout(paginate, 75); // slight pause between scrollTop and content swap
 });
