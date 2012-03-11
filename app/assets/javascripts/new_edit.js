@@ -19,19 +19,26 @@ $('#content').delegate('#hash-tag-field', 'blur', function() {
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
+function passingAloneParameters() {
+  var parameters = '?q=' + params()['q'] + '&page=' + params()['page']
+  parameters = parameters.replace(/q=undefined&/, '');
+  parameters = parameters.replace(/page=undefined/, '');
+  return parameters;
+}
 $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, status, xhr) {
-  $('#home-button').click();
+  var url = (params()['origin'] === 'show') ? '/tweets/' + data : '/';
+  $.pjax({
+    url: url + passingAloneParameters(),
+    container: '#content'
+  });
 });
 $('#content').delegate('#new-tweet-form', 'ajax:error', function(event, data, status, xhr) {
   alert(data.responseText);
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   var url = (params()['origin'] === 'show') ? $(this).attr('action') : '/';
-  var parameters = '?q=' + params()['q'] + '&page=' + params()['page']
-  parameters = parameters.replace(/q=undefined&/, '');
-  parameters = parameters.replace(/page=undefined/, '');
   $.pjax({
-    url: url + parameters,
+    url: url + passingAloneParameters(),
     container: '#content'
   });
 });

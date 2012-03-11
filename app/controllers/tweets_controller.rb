@@ -14,7 +14,7 @@ class TweetsController < ApplicationController
       group.dec
       render status: 400, inline: extract_first_error_message(hash_tag.errors.messages.merge tweet.errors.messages)
     else
-      render status: 200, nothing: true
+      render status: 200, inline: tweet.id.to_s
     end
   end
   
