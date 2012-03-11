@@ -54,3 +54,9 @@ function params() {
   });
   return vars;
 }
+function appendSearchParams() {
+  var parameters = '&q=' + params()['q'] + '&page=' + params()['page']
+  parameters = parameters.replace(/q=undefined&/, '');
+  parameters = parameters.replace(/page=undefined/, '');
+  return parameters;
+}

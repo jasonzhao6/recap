@@ -19,30 +19,27 @@ $('#content').delegate('#hash-tag-field', 'blur', function() {
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
-function passingAloneParameters() {
-  var parameters = '?q=' + params()['q'] + '&page=' + params()['page']
-  parameters = parameters.replace(/q=undefined&/, '');
-  parameters = parameters.replace(/page=undefined/, '');
-  return parameters;
-}
 $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, status, xhr) {
-  var url = (params()['origin'] === 'show') ? '/tweets/' + data : '/';
   $.pjax({
-    url: url + passingAloneParameters(),
+    url: '/',
     container: '#content'
   });
 });
-$('#content').delegate('#new-tweet-form', 'ajax:error', function(event, data, status, xhr) {
-  alert(data.responseText);
+$('#content').delegate('#reply-tweet-form', 'ajax:success', function(event, data, status, xhr) {
+  var url = '/tweets/' + data;
+  $.pjax({
+    url: url + '?' + appendSearchParams(),
+    container: '#content'
+  });
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   var url = (params()['origin'] === 'show') ? $(this).attr('action') : '/';
   $.pjax({
-    url: url + passingAloneParameters(),
+    url: url + '?' + appendSearchParams(),
     container: '#content'
   });
 });
-$('#content').delegate('#edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
+$('#content').delegate('#new-tweet-form, #reply-tweet-form, #edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
   alert(data.responseText);
 });
 
