@@ -1,26 +1,29 @@
 // Ajax search
 function search() {
-  $searchField = $('#search-field');
-  var query = $searchField.val();
-  if (query.substring(0, 2).toLowerCase() === 'h ') {
-    query = query.replace(/^h /i, '#')
-    $searchField.val(query);
-  }
-  if (query != '#') {
-    $.ajax({
-      url: '/?q=' + escape(query),
-      headers: {
-        'X-AJAX': true
-      },
-      success: function(data) {
-        $('#matches').html(data);
-      }
-    });
-  }
+  $.ajax({
+    url: '/?q=' + escape($('#search-field').val()),
+    headers: {
+      'X-AJAX': true
+    },
+    success: function(data) {
+      $('#matches').html(data);
+    }
+  });
 }
 $('#content').delegate('#search-field', 'keyup', function() {
   var $clearSearch = $('#clear-search-btn');
-  $(this).val().length > 0 ? $clearSearch.show() : $clearSearch.hide()
+  if ($(this).val().length > 0) {
+    $clearSearch.show();
+  } else {
+    $clearSearch.hide();
+  }
+  if ($(this).val().length === 2) {
+    var $searchField = $('#search-field');
+    if ($searchField.val().toLowerCase() === 'h ') {
+      $searchField.val('#');
+    }
+  }
+  
   if (typeof(searchId) === 'number') {
     clearTimeout(searchId);
     searchId = null;
