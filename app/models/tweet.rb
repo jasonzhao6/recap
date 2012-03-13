@@ -9,6 +9,7 @@ class Tweet < ActiveRecord::Base
   validates_presence_of :tweet
   validates_presence_of :hash_tag_id
   validates_presence_of :group_id
+  validates_presence_of :user_id
   
   def length # of 'tweet #hashtag'
     self.to_s.length + self.hash_tag.to_s.length + 2

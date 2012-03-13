@@ -40,6 +40,7 @@ $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data,
   });
 });
 $('#content').delegate('#new-tweet-form, #reply-tweet-form, #edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
+  charCount(); // If user submits with keyboard's 'Go/Enter' button while inside hash tag field, charCount() may have not been called since hash tag field was last updated
   alert(data.responseText);
 });
 
