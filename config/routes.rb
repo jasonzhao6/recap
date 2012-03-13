@@ -8,6 +8,7 @@ TwitterClone::Application.routes.draw do
 
   get 'login' => 'sessions#login'
   post 'login' => 'sessions#actually_login'
+  post 'sign_up' => 'sessions#sign_up'
   get 'logout' => 'sessions#logout'
 
 end

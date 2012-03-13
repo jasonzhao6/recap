@@ -146,8 +146,4 @@ class TweetsController < ApplicationController
     # if group doesn't exist, just create a new one
     params['tweet']['group'] = Tweet.find(params['tweet']['group']).group rescue Group.create
   end
-  
-  def extract_first_error_message messages
-    messages.map{|k, v| "#{k.to_s.capitalize.gsub(/\_/, ' ')} #{v.first}"}.first.to_s
-  end
 end
