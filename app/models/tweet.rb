@@ -1,6 +1,7 @@
 class Tweet < ActiveRecord::Base
   belongs_to :hash_tag
   belongs_to :group
+  belongs_to :user
   
   default_scope include: [:hash_tag, :group], order: 'tweets.created_at DESC'
   self.per_page = 6

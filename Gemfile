@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'bcrypt-ruby'
 gem 'haml'
 gem 'httparty'
 gem 'jquery-rails'
