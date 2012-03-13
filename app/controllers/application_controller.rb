@@ -2,16 +2,18 @@ require 'yaml'
 
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  before_filter :authenticate
   
   protected
   
-  def authenticate
-    if BASIC_AUTH
-      authenticate_or_request_with_http_basic do |username, password|
-        username == BASIC_AUTH['username'] && password == BASIC_AUTH['password']
-      end
-    end
+  def current_user
+    @current_user ||= session[:current_user] if session[:current_user]
+    @current_user ||= User.find cookies[:current_user] if cookies[:current_user]
+    @current_user
+  end
+  
+  def set_current_user user
+    @current_user = session[:current_user] = user
+    cookies[:current_user_id] = user.try(:id)
   end
   
 end

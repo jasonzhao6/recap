@@ -6,4 +6,8 @@ TwitterClone::Application.routes.draw do
     get :reply
   end
 
+  get 'login' => 'sessions#login'
+  post 'login' => 'sessions#actually_login'
+  get 'logout' => 'sessions#logout'
+
 end

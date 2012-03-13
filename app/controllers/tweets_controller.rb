@@ -1,5 +1,6 @@
 class TweetsController < ApplicationController
   layout :set_layout
+  before_filter :authenticated?
   before_filter :check_140_chars_and_trim, only: [:create, :update] # this should probably be done at the model level, but since it involves 2 separate models, it made sense to do it here
   
    # via ajax
@@ -119,6 +120,12 @@ class TweetsController < ApplicationController
       false
     else
       'tweets'
+    end
+  end
+  
+  def authenticated?
+    if !current_user
+      redirect_to login_path and return
     end
   end
 
