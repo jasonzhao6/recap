@@ -1,7 +1,7 @@
 class TweetsController < ApplicationController
   layout :set_layout
   before_filter :authenticated?
-  before_filter :check_140_chars_and_trim, only: [:create, :update] # this should probably be done at the model level, but since it involves 2 separate models, it made sense to do it here
+  before_filter :check_140_chars, only: [:create, :update] # this should probably be done at the model level, but since it involves 2 separate models, it made sense to do it here
   
    # via ajax
    # on error, return error message with 400, client should show error message
@@ -129,8 +129,7 @@ class TweetsController < ApplicationController
     end
   end
 
-  def check_140_chars_and_trim
-    params['tweet']['tweet'].strip!
+  def check_140_chars
     if params['tweet'].map{|k, v| %w(tweet hash_tag).include?(k) ? v : ''}.reduce(:+).length > 138 # length check, 138 chars because the ' #' between tweet and hash tag takes up 2 chars
       render status: 400, inline: '140 characters is the maximum allowed' and return
     end
