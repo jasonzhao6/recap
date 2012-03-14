@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   def actually_login
     user = User.find_by_email params[:email]
     if !user
-      render status: 400, inline: 'Email not fount' and return
+      render status: 400, inline: 'Email not found' and return
     elsif user.password != params[:password]
       render status: 400, inline: 'Incorrect password' and return
     else
