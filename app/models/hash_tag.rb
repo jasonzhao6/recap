@@ -3,6 +3,10 @@ class HashTag < ActiveRecord::Base
   has_many :tweets
   has_many :votes, through: :tweets
   
+  scope :of, (lambda do |current_user| 
+    {conditions: ['hash_tags.user_id = ?', current_user]}
+  end)
+
   validates_presence_of :hash_tag
   validates_presence_of :user_id
   

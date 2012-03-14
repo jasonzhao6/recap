@@ -2,6 +2,7 @@ class TweetsController < ApplicationController
   layout :set_layout
   before_filter :authenticated?
   before_filter :check_140_chars, only: [:create, :update] # this should probably be done at the model level, but since it involves 2 separate models, it made sense to do it here
+  before_filter :inject_current_user_into_params, only: [:create, :update]
   
    # via ajax
    # on error, return error message with 400, client should show error message
@@ -23,7 +24,7 @@ class TweetsController < ApplicationController
   # delete this tweet
   def destroy
     # gather everything affected by this delete action
-    tweet = Tweet.find params[:id]
+    tweet = Tweet.of(current_user).find params[:id]
     hash_tag = tweet.hash_tag
     group = tweet.group
 
@@ -36,7 +37,6 @@ class TweetsController < ApplicationController
 
     # go ahead with the delete
     tweet.delete
-    hash_tag.delete if hash_tag.tweets.count == 0 # if its hash tag is not used by any other tweet, delete the hash tag
     hash_tag.delete_if_not_used
     group.dec
 
@@ -50,22 +50,22 @@ class TweetsController < ApplicationController
   
   # show the tweet we are editing
   def edit
-    @tweet = Tweet.find params[:id]
+    @tweet = Tweet.of(current_user).find params[:id]
   end
 
   # show all tweets; handle search queries and pagination
   def index
     query = params[:q].try(:downcase)
     if query.blank?
-      @tweets = Tweet.paginate(page: params[:page])
+      @tweets = Tweet.of(current_user).paginate(page: params[:page])
     else
       if query[0] == '#'
-        @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
+        @tweets = Tweet.of(current_user).where('LOWER(hash_tags.hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
         if @tweets.length == 0
-          @tweets = Tweet.joins(:hash_tag).where('LOWER(hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
+          @tweets = Tweet.of(current_user).where('LOWER(hash_tags.hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
         end
       else
-        @tweets = Tweet.where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
+        @tweets = Tweet.of(current_user).where('LOWER(tweet) like ?', "%#{query}%").paginate(page: params[:page])
       end
     end
   end
@@ -74,12 +74,12 @@ class TweetsController < ApplicationController
   
   # show the tweet that we are replying to
   def reply
-    @tweet = Tweet.find params[:tweet_id] if params[:tweet_id]
+    @tweet = Tweet.of(current_user).find params[:tweet_id] if params[:tweet_id]
   end
   
   # show this tweet in a slide gallery with its related tweets
   def show
-    tweet = Tweet.find params[:id]
+    tweet = Tweet.of(current_user).find params[:id]
     @tweets = tweet.related
     @start_index = @tweets.index tweet
   end
@@ -88,7 +88,7 @@ class TweetsController < ApplicationController
   # on error, return error message with 400, client should show error message
   # on success, return nothing with 200, client should redirect to either :show or :index
   def update
-    tweet = Tweet.find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
+    tweet = Tweet.of(current_user).find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
     new_hash_tag = find_or_create_hash_tag_from_params
     tweet.update_attributes params['tweet']
@@ -96,7 +96,6 @@ class TweetsController < ApplicationController
       new_hash_tag.delete_if_not_used
       render status: 400, inline: extract_first_error_message(new_hash_tag.errors.messages.merge tweet.errors.messages)
     else
-      old_hash_tag.delete if old_hash_tag.tweets.count == 0
       old_hash_tag.delete_if_not_used
       render status: 200, nothing: true
     end
@@ -138,15 +137,19 @@ class TweetsController < ApplicationController
       render status: 400, inline: '140 characters is the maximum allowed' and return
     end
   end
+  
+  def inject_current_user_into_params
+    params['tweet']['user'] = current_user
+  end
 
   def find_or_create_hash_tag_from_params
     # also update params for use with create and update_attributes
-    params['tweet']['hash_tag'] = HashTag.find_or_create_by_hash_tag(params['tweet']['hash_tag'].downcase.gsub(/[^0-9a-z]/, ''))
+    params['tweet']['hash_tag'] = HashTag.find_or_create_by_hash_tag_and_user_id(params['tweet']['hash_tag'].downcase.gsub(/[^0-9a-z]/, ''), current_user.id)
   end
 
   def find_or_create_group_from_params
     # also update params for use with create and update_attributes
     # if group doesn't exist, just create a new one
-    params['tweet']['group'] = Tweet.find(params['tweet']['group']).group rescue Group.create
+    params['tweet']['group'] = Tweet.of(current_user).find(params['tweet']['group']).group rescue Group.create
   end
 end

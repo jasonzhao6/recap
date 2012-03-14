@@ -3,7 +3,12 @@ class Tweet < ActiveRecord::Base
   belongs_to :group
   belongs_to :user
   
+  # always eager load hash_tag/group info and order tweets by created at timestamp
   default_scope include: [:hash_tag, :group], order: 'tweets.created_at DESC'
+  scope :of, (lambda do |current_user| 
+    {conditions: ['tweets.user_id = ? AND hash_tags.user_id = ?', current_user, current_user]}
+  end)
+  
   self.per_page = 6
   
   validates_presence_of :tweet
