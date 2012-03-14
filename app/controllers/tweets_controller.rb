@@ -12,6 +12,7 @@ class TweetsController < ApplicationController
     group.inc
     tweet = Tweet.create params['tweet']
     if hash_tag.invalid? || tweet.invalid?
+      hash_tag.delete_if_not_used
       group.dec
       render status: 400, inline: extract_first_error_message(hash_tag.errors.messages.merge tweet.errors.messages)
     else
@@ -36,6 +37,7 @@ class TweetsController < ApplicationController
     # go ahead with the delete
     tweet.delete
     hash_tag.delete if hash_tag.tweets.count == 0 # if its hash tag is not used by any other tweet, delete the hash tag
+    hash_tag.delete_if_not_used
     group.dec
 
     # return to either :show or the last :index user was on retaining any search query and pagination info
@@ -91,9 +93,11 @@ class TweetsController < ApplicationController
     new_hash_tag = find_or_create_hash_tag_from_params
     tweet.update_attributes params['tweet']
     if new_hash_tag.invalid? || tweet.invalid?
+      new_hash_tag.delete_if_not_used
       render status: 400, inline: extract_first_error_message(new_hash_tag.errors.messages.merge tweet.errors.messages)
     else
       old_hash_tag.delete if old_hash_tag.tweets.count == 0
+      old_hash_tag.delete_if_not_used
       render status: 200, nothing: true
     end
   end

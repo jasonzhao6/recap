@@ -6,6 +6,10 @@ class HashTag < ActiveRecord::Base
   validates_presence_of :hash_tag
   validates_presence_of :user_id
   
+  def delete_if_not_used
+    self.delete if self.tweets.count == 0
+  end
+  
   def to_s
     self.hash_tag
   end
