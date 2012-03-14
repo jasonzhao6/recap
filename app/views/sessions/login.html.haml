@@ -2,7 +2,7 @@
   .page-header
     %h1 Recap
   %form#session-form{action: login_path, method: 'post', 'data-remote' => true}
-    %input.input-full{name: 'email', placeholder: 'Your email', value: 'test@example.com'}
-    %input.input-full{name: 'password', placeholder: 'Type your password', autocomplete: 'off', value: 'test'}
+    %input.input-full{name: 'email', placeholder: 'Your email', type: 'email'}
+    %input.input-full{name: 'password', placeholder: 'Type your password', autocomplete: 'off'}
     %button#login.btn.btn-primary.btn-large.input-full{type: 'submit'} Login
     %button#sign-up.btn.btn-large.input-full{type: 'button'} Sign up
