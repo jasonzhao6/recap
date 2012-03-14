@@ -8,9 +8,16 @@ class ApplicationController < ActionController::Base
   protected
   
   def current_user
-    @current_user ||= session[:current_user] if session[:current_user]
-    @current_user ||= User.find cookies[:current_user_id] if cookies[:current_user_id]
-    @current_user = nil if cookies[:current_user_key] != generate_key(@current_user)
+    if !@current_user
+      if session[:current_user]
+        @current_user = session[:current_user]
+      elsif cookies[:current_user_id]
+        @current_user = User.find cookies[:current_user_id]
+        if generate_key(@current_user) != cookies[:current_user_key]
+          @current_user = nil
+        end
+      end
+    end
     @current_user
   end
   
