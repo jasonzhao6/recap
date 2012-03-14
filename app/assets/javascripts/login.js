@@ -8,7 +8,7 @@ $('#content').delegate('#session-form', 'ajax:error', function(event, data, stat
 
 // Sign up
 $('#login').click(function() {
-  $('#session-form').attr('action', '/login').submit();
+  $('#session-form').attr('action', '/login');
 });
 $('#sign-up').click(function() {
   $('#session-form').attr('action', '/sign_up').submit();
