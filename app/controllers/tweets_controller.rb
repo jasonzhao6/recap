@@ -91,6 +91,7 @@ class TweetsController < ApplicationController
     tweet = Tweet.of(current_user).find params[:id] rescue render status: 500, inline: 'Tweet not found' and return
     old_hash_tag = tweet.hash_tag
     new_hash_tag = find_or_create_hash_tag_from_params
+    params['tweet']['created_at'] = "#{params['created_at_date']} #{params['created_at_time']}"
     tweet.update_attributes params['tweet']
     if new_hash_tag.invalid? || tweet.invalid?
       new_hash_tag.delete_if_not_used
