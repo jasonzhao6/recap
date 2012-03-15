@@ -34,6 +34,7 @@ class ApplicationController < ActionController::Base
   end
   
   def extract_first_error_message messages
+    messages.select! {|k| (k.to_s =~ /_id\Z/) == nil } # do not display foreign id related errors (ex. 'hash_tag_id can't be blank').. assuming that there are attribute validators on the foreign model that will be redundant enough (ex. HashTag.hash_tag presence validator).. I actually tried to just get rid of foreign key validators all together since they are assumed to be redundant, but it created errors.. couldn't figure out why.. worth a second look some other day
     messages.map{|k, v| "#{k.to_s.capitalize.gsub(/\_/, ' ')} #{v.first}"}.first.to_s
   end
   
