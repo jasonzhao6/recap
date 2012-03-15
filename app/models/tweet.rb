@@ -16,6 +16,10 @@ class Tweet < ActiveRecord::Base
   validates_presence_of :group_id
   validates_presence_of :user_id
   
+  def local_created_at
+    self.created_at.localtime
+  end
+  
   def length # of 'tweet #hashtag'
     self.to_s.length + self.hash_tag.to_s.length + 2
   end
