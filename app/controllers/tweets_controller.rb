@@ -15,7 +15,7 @@ class TweetsController < ApplicationController
     if hash_tag.invalid? || tweet.invalid?
       hash_tag.delete_if_not_used
       group.dec
-      render status: 400, inline: extract_first_error_message(hash_tag.errors.messages.merge tweet.errors.messages)
+      render status: 400, inline: extract_first_error_message(tweet.errors.messages.merge hash_tag.errors.messages)
     else
       render status: 200, inline: tweet.id.to_s
     end
@@ -94,7 +94,7 @@ class TweetsController < ApplicationController
     tweet.update_attributes params['tweet']
     if new_hash_tag.invalid? || tweet.invalid?
       new_hash_tag.delete_if_not_used
-      render status: 400, inline: extract_first_error_message(new_hash_tag.errors.messages.merge tweet.errors.messages)
+      render status: 400, inline: extract_first_error_message(tweet.errors.messages.merge new_hash_tag.errors.messages)
     else
       old_hash_tag.delete_if_not_used
       render status: 200, nothing: true
