@@ -60,7 +60,7 @@ class TweetsController < ApplicationController
       @tweets = Tweet.of(current_user).paginate(page: params[:page])
     else
       if query[0] == '#'
-        @tweets = Tweet.of(current_user).where('LOWER(hash_tags.hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
+        @tweets = Tweet.of(current_user).where('LOWER(hash_tags.hash_tag) = ?', query[1..-1]).paginate(page: params[:page])
         if @tweets.length == 0
           @tweets = Tweet.of(current_user).where('LOWER(hash_tags.hash_tag) like ?', "%#{query[1..-1]}%").paginate(page: params[:page])
         end
