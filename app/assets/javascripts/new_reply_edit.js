@@ -12,18 +12,21 @@ function charCount() {
 $('#content').delegate('#tweet-field', 'keyup', function() {
   charCount();
 });
+$('#content').delegate('#tweet-field', 'blur', function() {
+  var $tweetField = $('#tweet-field');
+  $tweetField.val($.trim($tweetField.val()));
+  charCount();
+});
 $('#content').delegate('#hash-tag-field', 'blur', function() {
-  setTimeout(charCount, 200); // Delay charCount() until Twitter Bootstrap's Typeahead runs
+  // Delay trim and charCount until Typeahead finishes autocompleting
+  setTimeout(function() {
+    var $hashTagField = $('#hash-tag-field');
+    $hashTagField.val($hashTagField.val().replace(/ /g, '').toLowerCase());
+    charCount();
+  }, 200);
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
-$('#content').delegate('#new-tweet-form, #reply-tweet-form, #edit-tweet-form', 'ajax:error', function(event, data, status, xhr) {
-  var $tweetField = $('#tweet-field');
-  $tweetField.val($.trim($tweetField.val()));
-  var $hashTagField = $('#hash-tag-field');
-  $hashTagField.val($hashTagField.val().replace(/ /g, '').toLowerCase());
-  charCount();
-});
 $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   $.pjax({
     url: '/',
@@ -64,4 +67,5 @@ $('body').delegate('#content', 'pjax:end', function(event, data, status, xhr) {
 // Hash tag clear button
 $('#content').delegate('#clear-hash-tag-btn', 'click', function() {
   $('#hash-tag-field').val('');
+  charCount();
 });
