@@ -5,7 +5,7 @@
 #matches
   - if @tweets
     - @tweets.each do |tweet|
-      %article.well{ontouchstart: "touchStart(event,'swiped-#{tweet.id}');", ontouchend: "touchEnd(event);", ontouchmove: "touchMove(event);", ontouchcancel: "touchCancel(event);"}
+      %article.well{'data-passed-name' => "swiped-#{tweet.id}", ontouchstart: "touchStart(event,'swiped-#{tweet.id}');", ontouchend: "touchEnd(event);", ontouchmove: "touchMove(event);", ontouchcancel: "touchCancel(event);"}
         = render partial: 'tweet_and_hash_tag', locals: {tweet: tweet}
         - if tweet.related_count > 1
           \-

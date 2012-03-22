@@ -65,9 +65,6 @@ body {
 #search-field {
   width: 208px;
 }
-article .date {
-  float: right;
-}
 article {
   position: relative;
 }

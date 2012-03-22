@@ -86,3 +86,14 @@ function processingRoutine() {
     $('#' + triggerElementID + '').css('opacity', .93).addClass('active').delay(75).fadeTo(0, 1);
   }
 }
+
+// Click binding for desktop use
+var deviceAgent = navigator.userAgent.toLowerCase();
+var iOS = deviceAgent.match(/(iphone|ipod|ipad)/);
+if (!iOS) {
+  $('article').click(function() {
+    triggerElementID = $(this).data('passed-name');
+    processingRoutine();
+    touchCancel();
+  });
+}
