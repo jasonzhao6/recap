@@ -61,7 +61,7 @@ $('body').delegate('#content', 'pjax:end', function(event, data, status, xhr) {
   }
 });
 
-// Hash tag clear button displayed on edit page
+// Hash tag clear button
 $('#content').delegate('#clear-hash-tag-btn', 'click', function() {
   $('#hash-tag-field').val('');
 });
