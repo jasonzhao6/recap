@@ -91,7 +91,7 @@ function processingRoutine() {
 var deviceAgent = navigator.userAgent.toLowerCase();
 var iOS = deviceAgent.match(/(iphone|ipod|ipad)/);
 if (!iOS) {
-  $('article').click(function() {
+  $('#content').delegate('article', 'click', function() {
     triggerElementID = $(this).data('passed-name');
     processingRoutine();
     touchCancel();
