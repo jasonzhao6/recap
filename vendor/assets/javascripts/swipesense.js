@@ -91,9 +91,11 @@ function processingRoutine() {
 var deviceAgent = navigator.userAgent.toLowerCase();
 var iOS = deviceAgent.match(/(iphone|ipod|ipad)/);
 if (!iOS) {
-  $('#content').delegate('article', 'click', function() {
-    triggerElementID = $(this).data('passed-name');
-    processingRoutine();
-    touchCancel();
+  $('#content').delegate('article', 'click', function(e) {
+    if (e.srcElement.tagName !== 'A') { // Exclude clicks to links
+      triggerElementID = $(this).data('passed-name');
+      processingRoutine();
+      touchCancel();
+    }
   });
 }
