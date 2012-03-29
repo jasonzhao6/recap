@@ -68,8 +68,11 @@ body {
 article {
   position: relative;
 }
+article.highlight {
+  background-color: #e5e5e5;
+}
 .swiped-container {
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   display: none;
   height: 80%;
   padding: 0 10px;
@@ -77,6 +80,9 @@ article {
   right: 0;
   top: 10%;
   width: 140px;
+}
+article.highlight .swiped-container {
+  background-color: #e5e5e5;
 }
 .swiped-container.active {
   display: block;

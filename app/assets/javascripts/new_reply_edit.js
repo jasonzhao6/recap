@@ -27,23 +27,28 @@ $('#content').delegate('#hash-tag-field', 'blur', function() {
 });
 
 // Unobtrusive form, not necessary, but it makes server-side validation nice (error feedback without page refresh)
+function appendHighlightParams(id) {
+  var parameters = '&highlight=' + (params()['origin'] === 'show' ? params()['highlight'] : id)
+  parameters = parameters.replace(/highlight=undefined/, '');
+  return parameters;
+}
 $('#content').delegate('#new-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   $.pjax({
-    url: '/',
+    url: '/?' + appendHighlightParams(data),
     container: '#content'
   });
 });
 $('#content').delegate('#reply-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   var url = '/tweets/' + data;
   $.pjax({
-    url: url + '?' + appendSearchParams(),
+    url: url + '?' + appendSearchParams() + appendHighlightParams($(this).data('tweet-id')),
     container: '#content'
   });
 });
 $('#content').delegate('#edit-tweet-form', 'ajax:success', function(event, data, status, xhr) {
   var url = (params()['origin'] === 'show') ? $(this).attr('action') : '/';
   $.pjax({
-    url: url + '?' + appendSearchParams(),
+    url: url + '?' + appendSearchParams() + appendHighlightParams($(this).data('tweet-id')),
     container: '#content'
   });
 });

@@ -42,9 +42,9 @@ class TweetsController < ApplicationController
 
     # return to either :show or the last :index user was on retaining any search query and pagination info
     if params[:origin] == 'show'
-      redirect_to related_remainder.length > 0 ? tweet_path(related_remainder[prev_index], q: params[:q], page: params[:page]) : :root
+      redirect_to related_remainder.length > 0 ? tweet_path(related_remainder[prev_index], q: params[:q], page: params[:page], highlight: params[:highlight]) : :root
     else
-      redirect_to tweets_path(q: params[:q], page: params[:page])
+      redirect_to tweets_path(q: params[:q], page: params[:page], highlight: params[:highlight])
     end
   end
   

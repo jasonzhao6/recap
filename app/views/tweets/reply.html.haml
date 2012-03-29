@@ -1,6 +1,6 @@
 .well
   = render partial: 'tweet_and_hash_tag', locals: {tweet: @tweet}
-= form_for Tweet.new, html: {id: 'reply-tweet-form', 'data-remote' => 'true'} do |f|
+= form_for Tweet.new, html: {id: 'reply-tweet-form', 'data-remote' => 'true', 'data-tweet-id' => @tweet.id} do |f|
   = f.hidden_field :group, value: @tweet.id
   = render partial: 'tweet_and_hash_tag_fields', locals: {f: f, tweet: nil}
   .form-actions
