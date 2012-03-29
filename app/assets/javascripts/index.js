@@ -60,7 +60,7 @@ function paginate() {
 }
 $('#pagination a').pjax('#to-paginate');
 $('body').delegate('#to-paginate', 'pjax:start', function(e, xhr, err) {
-  $('body, html').animate({ scrollTop: 0 }, 350);
+  $('body, html').animate({ scrollTop: 0 }, 400);
 });
 $('body').delegate('#to-paginate', 'pjax:complete', function(e, xhr, err) {
   setTimeout(paginate, 75); // slight pause between scrollTop and content swap

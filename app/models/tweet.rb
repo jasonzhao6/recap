@@ -9,7 +9,7 @@ class Tweet < ActiveRecord::Base
     {conditions: ['tweets.user_id = ? AND hash_tags.user_id = ?', current_user, current_user]}
   end)
   
-  self.per_page = 6
+  self.per_page = 10
   
   validates_presence_of :tweet
   validates_presence_of :hash_tag_id
