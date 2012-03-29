@@ -1,7 +1,7 @@
 - if !@ajax # do not render search bar when searching via ajax
   %form#search.well.form-search
     %input#search-field.search-query{type: 'text', placeholder: 'Search...', value: params[:q]}
-    %a#clear-search-btn.close.close-large{style: "display: #{params[:q] ? 'inline-block' : 'none'}"} &times;
+    %a#clear-search-btn.close.close-large &times;
 #matches
   - if @tweets
     - @tweets.each do |tweet|
