@@ -11,7 +11,7 @@ var curX = 0;
 var curY = 0;
 var deltaX = 0;
 var deltaY = 0;
-var minLength = 20; // the shortest distance the user may swipe
+var minLength = 40; // the shortest distance the user may swipe
 var swipeLength = 0;
 var isScrollingHorizontally = null;
 
