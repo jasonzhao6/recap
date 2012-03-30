@@ -69,7 +69,7 @@ article {
   position: relative;
 }
 article.highlight {
-  background-color: #e5e5e5;
+  background-color: #e8e8e8;
 }
 .swiped-container {
   background-color: #f5f5f5;
@@ -82,7 +82,7 @@ article.highlight {
   width: 140px;
 }
 article.highlight .swiped-container {
-  background-color: #e5e5e5;
+  background-color: #e8e8e8;
 }
 .swiped-container.active {
   display: block;
