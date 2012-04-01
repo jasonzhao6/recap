@@ -12,6 +12,9 @@
 body {
   max-width: 500px;
 }
+.relative {
+  position: relative;
+}
 /* Pattern for middle vertical alignment */
 .vertical-align-container {
   display: table;
@@ -136,9 +139,9 @@ article.highlight .swiped-container {
   text-decoration: none;
 }
 
-/*-----------*/
-/* New tweet */
-/*-----------*/
+/*----------------------*/
+/* New/Edit/Reply tweet */
+/*----------------------*/
 #tweet-field {
   padding: 8px;
   margin-top: 8px;
@@ -146,18 +149,14 @@ article.highlight .swiped-container {
 #hash-tag-field {
   width: 210px;
 }
+#clear-hash-tag-btn {
+  left: 261px;
+  position: absolute;
+}
 #char-count {
   float: right;
   font-weight: bold;
   margin-top: 4px;
-}
-
-/*------------*/
-/* Edit tweet */
-/*------------*/
-#clear-hash-tag-btn {
-  left: 261px;
-  position: absolute;
 }
 #timestamp-container h4 {
   margin: 10px 0;
