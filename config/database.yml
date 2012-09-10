@@ -15,9 +15,9 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: twitter_clone_development
+  database: recap_development
   pool: 5
-  username: _postgres
+  username: postgres
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -41,15 +41,15 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: twitter_clone_test
+  database: recap_test
   pool: 5
-  username: _postgres
+  username: postgres
   password:
 
 production:
   adapter: postgresql
   encoding: unicode
-  database: twitter_clone_production
+  database: recap_production
   pool: 5
-  username: _postgres
+  username: postgres
   password:

@@ -1,4 +1,4 @@
-TwitterClone::Application.routes.draw do
+Recap::Application.routes.draw do
 
   root :to => 'tweets#index'
   get 'quote' => 'tweets#quote'
