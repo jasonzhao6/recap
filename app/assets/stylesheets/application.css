@@ -202,13 +202,9 @@ input[type=time] {
   color: #333;
 }
 
-/*--------*/
-/* Footer */
-/*--------*/
+/*-------*/
+/* Quote */
+/*-------*/
 #quote {
   font-size: 14px;
-}
-#author {
-  float: right;
-  padding-right: 20px;
 }

@@ -109,7 +109,7 @@ class TweetsController < ApplicationController
   def quote
     begin # TODO VCR this guy, but write another test that tests this live.
       response = HTTParty.get("http://api.twitter.com/1/statuses/user_timeline.json?screen_name=motivation&count=#{COUNT}")
-      render status: 200, inline: response[Random.rand(COUNT)]['text'].gsub('" - ', '"<br /><span id="author">- ').gsub(/\shttp.*\Z/, '</span>').html_safe
+      render status: 200, inline: response[Random.rand(COUNT)]['text'].gsub(/^"/, '<p>').gsub(/"\s-.*\Z/, '</p>').html_safe
     rescue
       render status: 408, nothing: true # timeout
     end
